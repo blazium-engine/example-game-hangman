@@ -1,0 +1,313 @@
+[gd_scene load_steps=4 format=3 uid="uid://6dkft5u86tpy"]
+
+[ext_resource type="Script" path="res://game/hang_man.gd" id="1_kupf2"]
+[ext_resource type="Script" path="res://game/letter_pad.gd" id="2_epul0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_u6qai"]
+font_size = 40
+font_color = Color(0, 0, 0, 1)
+
+[node name="HangMan" type="ColorRect" node_paths=PackedStringArray("head", "body", "leftArm", "rightArm", "leftLeg", "rightLeg")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kupf2")
+head = NodePath("Left/Control/Head")
+body = NodePath("Left/Control/Body")
+leftArm = NodePath("Left/Control/ArmLeft")
+rightArm = NodePath("Left/Control/ArmRight")
+leftLeg = NodePath("Left/Control/LegLeft")
+rightLeg = NodePath("Left/Control/LegRight")
+
+[node name="Left" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="Left"]
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 2
+
+[node name="Post" type="ColorRect" parent="Left/Control"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 84.0
+offset_bottom = 464.0
+color = Color(0, 0, 0, 1)
+
+[node name="PostBar" type="ColorRect" parent="Left/Control"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 284.0
+offset_bottom = 84.0
+color = Color(0, 0, 0, 1)
+
+[node name="Rope" type="ColorRect" parent="Left/Control"]
+layout_mode = 0
+offset_left = 264.0
+offset_top = 84.0
+offset_right = 274.0
+offset_bottom = 159.0
+color = Color(0, 0, 0, 1)
+
+[node name="Head" type="ColorRect" parent="Left/Control"]
+layout_mode = 0
+offset_left = 249.0
+offset_top = 144.0
+offset_right = 289.0
+offset_bottom = 184.0
+color = Color(0.593134, 0.593134, 0.593134, 1)
+
+[node name="Rope2" type="ColorRect" parent="Left/Control"]
+layout_mode = 0
+offset_left = 258.0
+offset_top = 184.0
+offset_right = 281.0
+offset_bottom = 187.0
+color = Color(0, 0, 0, 1)
+
+[node name="Body" type="ColorRect" parent="Left/Control"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 187.0
+offset_right = 283.0
+offset_bottom = 276.0
+color = Color(0.593134, 0.593134, 0.593134, 1)
+
+[node name="Shoulders" type="ColorRect" parent="Left/Control/Body"]
+layout_mode = 0
+offset_left = -4.0
+offset_right = 30.0
+offset_bottom = 13.0
+color = Color(0.593134, 0.593134, 0.593134, 1)
+
+[node name="ArmLeft" type="ColorRect" parent="Left/Control"]
+layout_mode = 0
+offset_left = 241.0
+offset_top = 187.0
+offset_right = 252.0
+offset_bottom = 241.0
+color = Color(0.593134, 0.593134, 0.593134, 1)
+
+[node name="ArmRight" type="ColorRect" parent="Left/Control"]
+layout_mode = 0
+offset_left = 286.0
+offset_top = 187.0
+offset_right = 298.0
+offset_bottom = 241.0
+color = Color(0.593134, 0.593134, 0.593134, 1)
+
+[node name="LegLeft" type="ColorRect" parent="Left/Control"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 276.0
+offset_right = 266.0
+offset_bottom = 330.0
+color = Color(0.593134, 0.593134, 0.593134, 1)
+
+[node name="LegRight" type="ColorRect" parent="Left/Control"]
+layout_mode = 0
+offset_left = 273.0
+offset_top = 276.0
+offset_right = 283.0
+offset_bottom = 330.0
+color = Color(0.592157, 0.592157, 0.592157, 1)
+
+[node name="Right" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Right"]
+layout_mode = 2
+script = ExtResource("2_epul0")
+
+[node name="Label" type="Label" parent="Right/VBoxContainer"]
+layout_mode = 2
+text = "_ _ _ _ _ _ _ _"
+label_settings = SubResource("LabelSettings_u6qai")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="Right/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ButtonA" type="Button" parent="Right/VBoxContainer/HBoxContainer1"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "A"
+
+[node name="ButtonB" type="Button" parent="Right/VBoxContainer/HBoxContainer1"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "B"
+
+[node name="ButtonC" type="Button" parent="Right/VBoxContainer/HBoxContainer1"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "C"
+
+[node name="ButtonD" type="Button" parent="Right/VBoxContainer/HBoxContainer1"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "D"
+
+[node name="ButtonE" type="Button" parent="Right/VBoxContainer/HBoxContainer1"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "E"
+
+[node name="ButtonF" type="Button" parent="Right/VBoxContainer/HBoxContainer1"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "F"
+
+[node name="ButtonG" type="Button" parent="Right/VBoxContainer/HBoxContainer1"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "G"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Right/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ButtonH" type="Button" parent="Right/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "H"
+
+[node name="ButtonI" type="Button" parent="Right/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "I"
+
+[node name="ButtonJ" type="Button" parent="Right/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "J"
+
+[node name="ButtonK" type="Button" parent="Right/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "K"
+
+[node name="ButtonL" type="Button" parent="Right/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "L"
+
+[node name="ButtonM" type="Button" parent="Right/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "M"
+
+[node name="ButtonN" type="Button" parent="Right/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "N"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Right/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ButtonO" type="Button" parent="Right/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "O"
+
+[node name="ButtonP" type="Button" parent="Right/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "P"
+
+[node name="ButtonQ" type="Button" parent="Right/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "Q"
+
+[node name="ButtonR" type="Button" parent="Right/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "R"
+
+[node name="ButtonS" type="Button" parent="Right/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "S"
+
+[node name="ButtonT" type="Button" parent="Right/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "T"
+
+[node name="ButtonU" type="Button" parent="Right/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "U"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Right/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ButtonV" type="Button" parent="Right/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "V"
+
+[node name="ButtonW" type="Button" parent="Right/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "W"
+
+[node name="ButtonX" type="Button" parent="Right/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "X"
+
+[node name="ButtonY" type="Button" parent="Right/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "Y"
+
+[node name="ButtonZ" type="Button" parent="Right/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "Z"
+
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer1/ButtonA" to="Right/VBoxContainer" method="letterPressed" binds= [0]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer1/ButtonB" to="Right/VBoxContainer" method="letterPressed" binds= [1]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer1/ButtonC" to="Right/VBoxContainer" method="letterPressed" binds= [2]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer1/ButtonD" to="Right/VBoxContainer" method="letterPressed" binds= [3]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer1/ButtonE" to="Right/VBoxContainer" method="letterPressed" binds= [4]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer1/ButtonF" to="Right/VBoxContainer" method="letterPressed" binds= [5]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer1/ButtonG" to="Right/VBoxContainer" method="letterPressed" binds= [6]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer2/ButtonH" to="Right/VBoxContainer" method="letterPressed" binds= [7]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer2/ButtonI" to="Right/VBoxContainer" method="letterPressed" binds= [8]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer2/ButtonJ" to="Right/VBoxContainer" method="letterPressed" binds= [9]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer2/ButtonK" to="Right/VBoxContainer" method="letterPressed" binds= [10]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer2/ButtonL" to="Right/VBoxContainer" method="letterPressed" binds= [11]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer2/ButtonM" to="Right/VBoxContainer" method="letterPressed" binds= [12]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer2/ButtonN" to="Right/VBoxContainer" method="letterPressed" binds= [13]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer3/ButtonO" to="Right/VBoxContainer" method="letterPressed" binds= [14]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer3/ButtonP" to="Right/VBoxContainer" method="letterPressed" binds= [15]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer3/ButtonQ" to="Right/VBoxContainer" method="letterPressed" binds= [16]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer3/ButtonR" to="Right/VBoxContainer" method="letterPressed" binds= [17]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer3/ButtonS" to="Right/VBoxContainer" method="letterPressed" binds= [18]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer3/ButtonT" to="Right/VBoxContainer" method="letterPressed" binds= [19]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer3/ButtonU" to="Right/VBoxContainer" method="letterPressed" binds= [20]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer4/ButtonV" to="Right/VBoxContainer" method="letterPressed" binds= [21]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer4/ButtonW" to="Right/VBoxContainer" method="letterPressed" binds= [22]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer4/ButtonX" to="Right/VBoxContainer" method="letterPressed" binds= [23]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer4/ButtonY" to="Right/VBoxContainer" method="letterPressed" binds= [24]]
+[connection signal="pressed" from="Right/VBoxContainer/HBoxContainer4/ButtonZ" to="Right/VBoxContainer" method="letterPressed" binds= [25]]

@@ -1,0 +1,143 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjp8uk6p1a5l7"]
+
+[ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="1_7o5e6"]
+
+[node name="MainMenu" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="PaddingLeft" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.325441, 0.325441, 0.325441, 1)
+
+[node name="PaddingRight" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="PaddingLeft" type="Control" parent="HBoxContainer2"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer2"]
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.325441, 0.325441, 0.325441, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2/ColorRect"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_right = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="PaddingTop" type="Control" parent="HBoxContainer2/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="LabelLobbies" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer/PaddingTop"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Hangman"
+label_settings = ExtResource("1_7o5e6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lobby Service: Disconneced"
+horizontal_alignment = 1
+
+[node name="ButtonLobbyService" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Retry Service Connection"
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ButtonJoinPrivate" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Join Private Lobby"
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+placeholder_text = "Code"
+max_length = 7
+
+[node name="ButtonJoinPublic" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Browse Public Lobbies"
+
+[node name="ButtonLobby" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host Lobby"
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonCredits" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+
+[node name="PaddingBottom" type="Control" parent="HBoxContainer2/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="PaddingRight" type="Control" parent="HBoxContainer2"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
