@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvyuw31lvsal7"]
+
+[ext_resource type="PackedScene" uid="uid://cjp8uk6p1a5l7" path="res://menus/main_menu.tscn" id="1_0l2fk"]
+
+[node name="Main" type="Node"]
+
+[node name="BlaziumLobby" type="BlaziumLobby" parent="."]
+
+[node name="MainMenu" parent="." node_paths=PackedStringArray("lobby") instance=ExtResource("1_0l2fk")]
+lobby = NodePath("../BlaziumLobby")
