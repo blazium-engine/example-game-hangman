@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cjp8uk6p1a5l7"]
 
-[ext_resource type="Script" path="res://menus/main_menu.gd" id="1_20biu"]
-[ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="2_3q8jx"]
+[ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="1_7o5e6"]
+[ext_resource type="Script" path="res://menus/main_menu.gd" id="1_yk63t"]
 
 [node name="MainMenu" type="ColorRect"]
 anchors_preset = 15
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_20biu")
+script = ExtResource("1_yk63t")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -83,7 +83,7 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Hangman"
-label_settings = ExtResource("2_3q8jx")
+label_settings = ExtResource("1_7o5e6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2/ColorRect/VBoxContainer"]
 layout_mode = 2
@@ -94,14 +94,9 @@ alignment = 1
 layout_mode = 2
 alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-placeholder_text = "Name:"
-alignment = 1
-
 [node name="Label" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Lobby Service: Disconnected"
+text = "Lobby Service: Connected"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
@@ -130,6 +125,5 @@ layout_mode = 2
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
-[connection signal="text_submitted" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/ButtonJoinPublic" to="." method="_on_button_join_public_pressed"]
 [connection signal="pressed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/ButtonLobby" to="." method="_on_button_lobby_pressed"]

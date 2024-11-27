@@ -67,18 +67,6 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="HBoxContainerPrivacy2" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2"]
-layout_mode = 2
-text = "Title:"
-
-[node name="Title" type="LineEdit" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-
 [node name="HBoxContainerPrivacy" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
@@ -103,7 +91,7 @@ alignment = 1
 layout_mode = 2
 text = "Players:"
 
-[node name="ButtonDecrement" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers"]
+[node name="ButtonIncrement" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers"]
 layout_mode = 2
 text = "<"
 
@@ -111,16 +99,13 @@ text = "<"
 layout_mode = 2
 text = "2"
 
-[node name="ButtonIncrement" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers"]
+[node name="ButtonDecrement" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers"]
 layout_mode = 2
 text = ">"
 
 [node name="ButtonCreateLobby" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Create Lobby"
-
-[node name="Logs" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
-layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
@@ -139,7 +124,4 @@ custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
 [connection signal="toggled" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy/CheckBox" to="." method="_on_check_box_toggled"]
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/ButtonDecrement" to="." method="_on_button_decrement_pressed"]
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/ButtonIncrement" to="." method="_on_button_increment_pressed"]
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/ButtonCreateLobby" to="." method="_on_button_create_lobby_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
