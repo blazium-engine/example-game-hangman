@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmwdqnvuk8nbk"]
+[gd_scene load_steps=3 format=3 uid="uid://dmwdqnvuk8nbk"]
 
+[ext_resource type="Script" path="res://menus/lobby_creator.gd" id="1_3c7gg"]
 [ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="1_pgywf"]
 
 [node name="LobbyCreator" type="ColorRect"]
@@ -8,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_3c7gg")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -71,9 +73,14 @@ alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy"]
 layout_mode = 2
-text = "Public:"
+text = "Password:"
 
-[node name="CheckButton" type="CheckButton" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy"]
+[node name="CheckBox" type="CheckButton" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy"]
+layout_mode = 2
+
+[node name="CheckButton" type="LineEdit" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
 [node name="HBoxContainerPlayers" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
@@ -115,3 +122,6 @@ layout_mode = 2
 [node name="PaddingRight" type="Control" parent="HBoxContainer"]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
+
+[connection signal="toggled" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]

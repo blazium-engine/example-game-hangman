@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cjp8uk6p1a5l7"]
+[gd_scene load_steps=3 format=3 uid="uid://cjp8uk6p1a5l7"]
 
 [ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="1_7o5e6"]
+[ext_resource type="Script" path="res://menus/main_menu.gd" id="1_yk63t"]
 
 [node name="MainMenu" type="ColorRect"]
 anchors_preset = 15
@@ -8,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_yk63t")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -94,34 +96,15 @@ alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Lobby Service: Disconneced"
+text = "Lobby Service: Connected"
 horizontal_alignment = 1
-
-[node name="ButtonLobbyService" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Retry Service Connection"
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="ButtonJoinPrivate" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Join Private Lobby"
-
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(112, 0)
-layout_mode = 2
-placeholder_text = "Code"
-max_length = 7
-
 [node name="ButtonJoinPublic" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Browse Public Lobbies"
+text = "Browse Lobbies"
 
 [node name="ButtonLobby" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -141,3 +124,6 @@ layout_mode = 2
 [node name="PaddingRight" type="Control" parent="HBoxContainer2"]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
+
+[connection signal="pressed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/ButtonJoinPublic" to="." method="_on_button_join_public_pressed"]
+[connection signal="pressed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/ButtonLobby" to="." method="_on_button_lobby_pressed"]

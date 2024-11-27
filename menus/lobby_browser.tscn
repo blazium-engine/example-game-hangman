@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://7blyjegi70l6"]
+[gd_scene load_steps=3 format=3 uid="uid://7blyjegi70l6"]
 
 [ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="1_bvw7k"]
+[ext_resource type="Script" path="res://menus/lobby_browser.gd" id="1_cirsv"]
 
 [node name="LobbyBrowser" type="ColorRect"]
 anchors_preset = 15
@@ -8,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_cirsv")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -100,3 +102,5 @@ layout_mode = 2
 [node name="PaddingRight" type="Control" parent="HBoxContainer"]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
+
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
