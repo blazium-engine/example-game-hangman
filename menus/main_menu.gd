@@ -1,8 +1,9 @@
 extends Control
 
-var lobby_browser_scene : PackedScene = load("res://menus/lobby_browser.tscn")
+var lobby_browser_scene : PackedScene = load("res://menus/lobby_browser/lobby_browser.tscn")
 var lobby_creator_scene : PackedScene = load("res://menus/lobby_creator.tscn")
 @onready var lobby_connection_label : Label = $HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/Label
+
 func _ready() -> void:
 	GlobalLobbyClient.append_log.connect(_on_logs)
 	GlobalLobbyClient.disconnected_from_lobby.connect(_on_disconnect)

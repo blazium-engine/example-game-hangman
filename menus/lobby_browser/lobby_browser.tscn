@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://7blyjegi70l6"]
 
 [ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="1_bvw7k"]
-[ext_resource type="Script" path="res://menus/lobby_browser.gd" id="1_cirsv"]
+[ext_resource type="Script" path="res://menus/lobby_browser/lobby_browser.gd" id="1_cirsv"]
 
 [node name="LobbyBrowser" type="ColorRect"]
 anchors_preset = 15
@@ -68,28 +68,16 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="HBoxContainerLobby1" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerLobby1"]
-layout_mode = 2
-text = "LOBBY EXAMPLE"
-
-[node name="VSeparator" type="VSeparator" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerLobby1"]
-layout_mode = 2
-
-[node name="LabelPlayers" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerLobby1"]
-layout_mode = 2
-text = "1/4"
-
-[node name="Button" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerLobby1"]
-layout_mode = 2
-text = "Join"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 alignment = 1
+
+[node name="RefreshButton" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Refresh"
 
 [node name="ButtonMainMenu" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -103,4 +91,5 @@ layout_mode = 2
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
