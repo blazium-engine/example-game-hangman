@@ -1,15 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://7blyjegi70l6"]
+[gd_scene load_steps=3 format=3 uid="uid://d1qjnqq2nagyi"]
 
-[ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="1_bvw7k"]
-[ext_resource type="Script" path="res://menus/lobby_browser/lobby_browser.gd" id="1_cirsv"]
+[ext_resource type="Script" path="res://menus/lobby_viewer.gd" id="1_q7ylh"]
+[ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="2_qx51b"]
 
-[node name="LobbyBrowser" type="ColorRect"]
+[node name="LobbyViewer" type="ColorRect"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_cirsv")
+script = ExtResource("1_q7ylh")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -60,8 +60,8 @@ offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "Lobbies"
-label_settings = ExtResource("1_bvw7k")
+text = "Lobby Code: 1234"
+label_settings = ExtResource("2_qx51b")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
@@ -75,13 +75,9 @@ layout_mode = 2
 layout_mode = 2
 alignment = 1
 
-[node name="RefreshButton" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Refresh"
-
 [node name="ButtonMainMenu" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "Main Menu"
+text = "Leave Lobby"
 
 [node name="PaddingBottom" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]
 custom_minimum_size = Vector2(64, 64)
@@ -91,5 +87,4 @@ layout_mode = 2
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]

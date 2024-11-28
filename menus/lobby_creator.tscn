@@ -107,6 +107,9 @@ text = ">"
 layout_mode = 2
 text = "Create Lobby"
 
+[node name="Logs" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 alignment = 1
@@ -124,4 +127,5 @@ custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
 [connection signal="toggled" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/ButtonCreateLobby" to="." method="_on_button_create_lobby_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
