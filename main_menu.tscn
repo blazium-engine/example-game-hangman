@@ -94,9 +94,14 @@ alignment = 1
 layout_mode = 2
 alignment = 1
 
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Name:"
+alignment = 1
+
 [node name="Label" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Lobby Service: Connected"
+text = "Lobby Service: Disconnected"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
@@ -125,5 +130,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
+[connection signal="text_submitted" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/ButtonJoinPublic" to="." method="_on_button_join_public_pressed"]
 [connection signal="pressed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/ButtonLobby" to="." method="_on_button_lobby_pressed"]
