@@ -29,31 +29,29 @@ func _ready() -> void:
 		logs.text = result.error
 	else:
 		logs.text = "Success"
-	players = result.get_lobby_info().players
-	max_players = result.get_lobby_info().max_players
-	title = result.get_lobby_info().name
+	players = result.peers.size()
+	max_players = result.lobby.max_players
+	title = result.lobby.lobby_name
 	lobby_label.text = title + " " + str(players) + "/" + str(max_players)
 	for child in lobby_grid.get_children():
 		child.queue_free()
 	for peer in result.peers:
 		var peer_container := container_peer_scene.instantiate()
-		peer_container.peer_id = peer.id
-		peer_container.peer = peer.name
+		peer_container.peer = peer
 		lobby_grid.add_child(peer_container)
 
-func _peer_joined(peer: String, name: String):
+func _peer_joined(peer: LobbyPeer):
 	players += 1
 	lobby_label.text = title + " " + str(players) + "/" + str(max_players)
 	var peer_container := container_peer_scene.instantiate()
-	peer_container.peer_id = peer
-	peer_container.peer = name
+	peer_container.peer = peer
 	lobby_grid.add_child(peer_container)
 
-func _peer_left(peer: String, kicked: bool):
+func _peer_left(peer: LobbyPeer, kicked: bool):
 	players -= 1
 	lobby_label.text = title + " " + str(players) + "/" + str(max_players)
 	for child in lobby_grid.get_children():
-		if child.peer_id == peer:
+		if child.peer.id == peer.id:
 			child.queue_free()
 
 func _lobby_left():

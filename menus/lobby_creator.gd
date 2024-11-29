@@ -18,11 +18,11 @@ func _on_check_box_toggled(toggled_on: bool) -> void:
 
 
 func _on_button_create_lobby_pressed() -> void:
-	var result : CreateLobbyResult = await GlobalLobbyClient.create_lobby(title.text, int(max_players.text), password_line_edit.text).finished
+	var result : ViewLobbyResult = await GlobalLobbyClient.create_lobby(title.text, int(max_players.text), password_line_edit.text).finished
 	if result.has_error():
 		logs.text = result.error
 	else:
-		logs.text = result.lobby.name
+		logs.text = result.lobby.lobby_name
 	await get_tree().create_timer(0.2).timeout
 	get_tree().change_scene_to_packed(lobby_viewer_scene)
 

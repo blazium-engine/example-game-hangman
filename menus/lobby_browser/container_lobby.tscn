@@ -21,4 +21,9 @@ text = "1/4"
 layout_mode = 2
 text = "Join"
 
+[node name="LineEdit" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+placeholder_text = "Password"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

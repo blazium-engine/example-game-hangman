@@ -21,9 +21,7 @@ func load_lobbies():
 		child.queue_free()
 	for lobby in result.lobbies:
 		var lobby_container := container_lobby_scene.instantiate()
-		lobby_container.lobby_id = lobby.id
-		lobby_container.lobby = lobby.name
-		lobby_container.players = str(lobby.players) + "/" + str(lobby.max_players)
+		lobby_container.lobby = lobby
 		lobby_grid.add_child(lobby_container)
 		
 
