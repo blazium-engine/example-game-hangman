@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://ci8je3ah6vd01"]
+
+[ext_resource type="Script" path="res://menus/lobby_viewer/container_peer.gd" id="1_sgvo6"]
+
+[node name="ContainerLobby" type="HBoxContainer"]
+alignment = 1
+script = ExtResource("1_sgvo6")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "PEER NAME"
+
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 2
+
+[node name="Ready" type="Label" parent="."]
+layout_mode = 2
+text = "Not Ready"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "Kick"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

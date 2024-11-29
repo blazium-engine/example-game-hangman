@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgtlmxyy8qy4f"]
+
+[ext_resource type="Script" path="res://menus/lobby_browser/container_lobby.gd" id="1_w0jgs"]
+
+[node name="ContainerLobby" type="HBoxContainer"]
+alignment = 1
+script = ExtResource("1_w0jgs")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "LOBBY EXAMPLE"
+
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 2
+
+[node name="LabelPlayers" type="Label" parent="."]
+layout_mode = 2
+text = "1/4"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "Join"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+placeholder_text = "Password"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
