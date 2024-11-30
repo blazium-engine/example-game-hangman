@@ -26,7 +26,6 @@ func _ready() -> void:
 	GlobalLobbyClient.peer_left.connect(_peer_left)
 	GlobalLobbyClient.lobby_left.connect(_lobby_left)
 	GlobalLobbyClient.lobby_sealed.connect(_lobby_sealed)
-	GlobalLobbyClient.lobby_unsealed.connect(_lobby_unsealed)
 	if GlobalLobbyClient.peer.id != GlobalLobbyClient.lobby.host:
 		seal_button.visible = false
 	update_title()
@@ -56,28 +55,15 @@ func _lobby_left():
 
 
 func _on_ready_pressed() -> void:
-	if GlobalLobbyClient.peer.ready:
-		var result :LobbyResult = await GlobalLobbyClient.lobby_unready().finished
-		if result.has_error():
-			logs.text = result.error
-	else:
-		var result :LobbyResult = await GlobalLobbyClient.lobby_ready().finished
-		if result.has_error():
-			logs.text = result.error
+	var result :LobbyResult = await GlobalLobbyClient.lobby_ready(!GlobalLobbyClient.peer.ready).finished
+	if result.has_error():
+		logs.text = result.error
 
 
 func _on_seal_pressed() -> void:
-	if GlobalLobbyClient.lobby.sealed:
-		var result :LobbyResult = await GlobalLobbyClient.unseal_lobby().finished
-		if result.has_error():
-			logs.text = result.error
-	else:
-		var result :LobbyResult = await GlobalLobbyClient.seal_lobby().finished
-		if result.has_error():
-			logs.text = result.error
+	var result :LobbyResult = await GlobalLobbyClient.seal_lobby(!GlobalLobbyClient.lobby.sealed).finished
+	if result.has_error():
+		logs.text = result.error
 
-func _lobby_unsealed():
-	update_title()
-
-func _lobby_sealed():
+func _lobby_sealed(sealed: bool):
 	update_title()
