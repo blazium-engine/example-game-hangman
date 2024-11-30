@@ -7,7 +7,7 @@
 font_size = 40
 font_color = Color(0, 0, 0, 1)
 
-[node name="HangMan" type="ColorRect" node_paths=PackedStringArray("head", "body", "leftArm", "rightArm", "leftLeg", "rightLeg")]
+[node name="HangMan" type="ColorRect" node_paths=PackedStringArray("head", "body", "leftArm", "rightArm", "leftLeg", "rightLeg", "set_word_button", "letter_pad", "logs")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -20,6 +20,9 @@ leftArm = NodePath("Left/Control/ArmLeft")
 rightArm = NodePath("Left/Control/ArmRight")
 leftLeg = NodePath("Left/Control/LegLeft")
 rightLeg = NodePath("Left/Control/LegRight")
+set_word_button = NodePath("Right/VBoxContainer/SetWord")
+letter_pad = NodePath("Right/VBoxContainer")
+logs = NodePath("Right/VBoxContainer/Logs")
 
 [node name="Left" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -128,9 +131,11 @@ anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Right"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Right" node_paths=PackedStringArray("word_label", "logs")]
 layout_mode = 2
 script = ExtResource("2_epul0")
+word_label = NodePath("Label")
+logs = NodePath("Logs")
 
 [node name="Label" type="Label" parent="Right/VBoxContainer"]
 layout_mode = 2
@@ -285,6 +290,19 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 text = "Z"
 
+[node name="SetWord" type="Button" parent="Right/VBoxContainer"]
+layout_mode = 2
+text = "Set Word"
+
+[node name="Logs" type="Label" parent="Right/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Logs:"
+
+[node name="Leave" type="Button" parent="Right/VBoxContainer"]
+layout_mode = 2
+text = "Leave"
+
 [connection signal="pressed" from="Right/VBoxContainer/HBoxContainer1/ButtonA" to="Right/VBoxContainer" method="letterPressed" binds= [0]]
 [connection signal="pressed" from="Right/VBoxContainer/HBoxContainer1/ButtonB" to="Right/VBoxContainer" method="letterPressed" binds= [1]]
 [connection signal="pressed" from="Right/VBoxContainer/HBoxContainer1/ButtonC" to="Right/VBoxContainer" method="letterPressed" binds= [2]]
@@ -311,3 +329,5 @@ text = "Z"
 [connection signal="pressed" from="Right/VBoxContainer/HBoxContainer4/ButtonX" to="Right/VBoxContainer" method="letterPressed" binds= [23]]
 [connection signal="pressed" from="Right/VBoxContainer/HBoxContainer4/ButtonY" to="Right/VBoxContainer" method="letterPressed" binds= [24]]
 [connection signal="pressed" from="Right/VBoxContainer/HBoxContainer4/ButtonZ" to="Right/VBoxContainer" method="letterPressed" binds= [25]]
+[connection signal="pressed" from="Right/VBoxContainer/SetWord" to="." method="_on_set_word_pressed"]
+[connection signal="pressed" from="Right/VBoxContainer/Leave" to="." method="_on_leave_pressed"]

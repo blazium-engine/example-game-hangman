@@ -5,8 +5,10 @@ extends Control
 @onready var _kick_button: Button = $Button
 
 @export var peer : LobbyPeer
+@export var logs : Label
 
 func _ready():
+	GlobalLobbyClient.peer_ready.connect(_on_peer_ready)
 	_peer_name.text = peer.peer_name
 	_peer_ready.text = str(peer.ready)
 	# If not host, hide kick button
@@ -17,6 +19,10 @@ func _ready():
 func _on_button_pressed() -> void:
 	var result : LobbyResult = await GlobalLobbyClient.kick_peer(peer.id).finished
 	if result.has_error():
-		push_error(result.error)
+		logs.text = result.error
 	else:
-		print("Success")
+		logs.text = "Success"
+
+func _on_peer_ready(updated_peer: LobbyPeer, p_ready: bool):
+	if updated_peer.id == peer.id:
+		_peer_ready.text = "Ready: " + str(p_ready)

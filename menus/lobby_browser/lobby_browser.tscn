@@ -71,6 +71,22 @@ alignment = 1
 [node name="Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Left" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "<"
+
+[node name="Page" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "1"
+
+[node name="Right" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = ">"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 alignment = 1
@@ -91,5 +107,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/Right" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]

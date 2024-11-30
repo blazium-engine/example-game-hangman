@@ -5,21 +5,18 @@ var lobby_creator_scene : PackedScene = load("res://menus/lobby_creator.tscn")
 var reconnects = 0
 @onready var peer_name : LineEdit = $HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/LineEdit
 @onready var lobby_connection_label : Label = $HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/Label
+@onready var logs : Label = $HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/Logs
 
 func _ready() -> void:
 	peer_name.text = GlobalLobbyClient.peer.peer_name
-	GlobalLobbyClient.append_log.connect(_on_logs)
 	GlobalLobbyClient.disconnected_from_lobby.connect(_on_disconnect)
 	connect_to_lobby()
 
 func connect_to_lobby():
-	#GlobalLobbyClient.server_url = "ws://localhost:8080/connect"
-	var connected = GlobalLobbyClient.connect_to_lobby("Hangman")
+	GlobalLobbyClient.server_url = "ws://localhost:8080/connect"
+	var connected = GlobalLobbyClient.connect_to_lobby("hangman")
 	if connected:
 		lobby_connection_label.text = "Lobby Service: Connected"
-
-func _on_logs(command: String, logs:String):
-	print(command, " ", logs)
 	
 func _on_disconnect():
 	lobby_connection_label.text = "Lobby Service: Retrying"
@@ -41,4 +38,6 @@ func _on_button_lobby_pressed() -> void:
 func _on_line_edit_text_submitted(new_text: String) -> void:
 	var result :LobbyResult= await GlobalLobbyClient.set_peer_name(new_text).finished
 	if result.has_error():
-		push_error(result.error)
+		logs.text = result.error
+	else:
+		logs.text = "Success"

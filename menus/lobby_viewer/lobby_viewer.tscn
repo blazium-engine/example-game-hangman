@@ -79,6 +79,18 @@ alignment = 1
 layout_mode = 2
 text = "Leave Lobby"
 
+[node name="Ready" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Ready"
+
+[node name="Seal" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Seal"
+
+[node name="Start" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Start"
+
 [node name="PaddingBottom" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
@@ -88,3 +100,6 @@ custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/Ready" to="." method="_on_ready_pressed"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/Seal" to="." method="_on_seal_pressed"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/Start" to="." method="_on_start_pressed"]
