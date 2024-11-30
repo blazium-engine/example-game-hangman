@@ -10,7 +10,7 @@ extends Control
 func _ready():
 	GlobalLobbyClient.peer_ready.connect(_on_peer_ready)
 	_peer_name.text = peer.peer_name
-	_peer_ready.text = str(peer.ready)
+	_peer_ready.text = "Ready: " + str(peer.ready)
 	# If not host, hide kick button
 	if GlobalLobbyClient.lobby.host != GlobalLobbyClient.peer.id:
 		_kick_button.visible = false
@@ -20,8 +20,6 @@ func _on_button_pressed() -> void:
 	var result : LobbyResult = await GlobalLobbyClient.kick_peer(peer.id).finished
 	if result.has_error():
 		logs.text = result.error
-	else:
-		logs.text = "Success"
 
 func _on_peer_ready(updated_peer: LobbyPeer, p_ready: bool):
 	if updated_peer.id == peer.id:

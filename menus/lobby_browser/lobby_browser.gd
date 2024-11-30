@@ -18,8 +18,6 @@ func load_lobbies():
 	var result : ListLobbyResult = await GlobalLobbyClient.list_lobby(page, 10).finished
 	if result.has_error():
 		logs.text = result.error
-	else:
-		logs.text = "Success"
 	for child in lobby_grid.get_children():
 		child.queue_free()
 	for lobby in result.lobbies:

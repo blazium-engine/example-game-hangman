@@ -9,11 +9,13 @@ extends Node
 @export var set_word_button: Button
 @export var letter_pad: LetterPad
 @export var logs: Label
+var body_parts : Array[ColorRect]
 
 var main_menu_scene : PackedScene = load("res://main_menu.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	body_parts = [head, body, leftArm, rightArm, leftLeg, rightLeg]
 	GlobalLobbyClient.received_data.connect(_received_data)
 	GlobalLobbyClient.lobby_left.connect(_lobby_left)
 	GlobalLobbyClient.append_log.connect(_append_log)
@@ -59,11 +61,16 @@ func _received_data(data: Dictionary, from_peer: String):
 			"guess":
 				var guess = data["letter"]
 				# Only peers can guess, this only calls on the host
+				var guessed = false
 				if from_peer != GlobalLobbyClient.lobby.host:
 					for i in len(letter_pad.word):
 						if letter_pad.word[i] == guess:
 							letter_pad.guessed_word[i] = guess
-				update_word_on_peers()
+							guessed = true
+				if guessed:
+					update_word_on_peers()
+				else:
+					update_send_damage()
 			"update_word":
 				# Only host can update word
 				if from_peer == GlobalLobbyClient.lobby.host:
@@ -72,12 +79,28 @@ func _received_data(data: Dictionary, from_peer: String):
 					if GlobalLobbyClient.is_host():
 						return
 					letter_pad.update_word(update_word)
+			"take_damage":
+				# Only host can damage players
+				if from_peer == GlobalLobbyClient.lobby.host:
+					take_damage()
 
 func update_word_on_peers():
 	var result : LobbyResult = await GlobalLobbyClient.lobby_data({"command": "update_word", "word": letter_pad.guessed_word}).finished
 	if result.has_error():
 		logs.text = result.error
 	if letter_pad.guessed_word == letter_pad.word:
+		await get_tree().create_timer(0.5).timeout
+		leave_lobby()
+
+func update_send_damage():
+	var result : LobbyResult = await GlobalLobbyClient.lobby_data({"command": "take_damage"}).finished
+	if result.has_error():
+		logs.text = result.error
+
+func take_damage():
+	var body_part :ColorRect= body_parts.pop_back()
+	body_part.visible = false
+	if body_parts.is_empty():
 		await get_tree().create_timer(0.5).timeout
 		leave_lobby()
 

@@ -3,13 +3,18 @@
 [ext_resource type="Script" path="res://menus/lobby_viewer/lobby_viewer.gd" id="1_buss2"]
 [ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="2_q1sf8"]
 
-[node name="LobbyViewer" type="ColorRect"]
+[node name="LobbyViewer" type="ColorRect" node_paths=PackedStringArray("lobby_grid", "logs_label", "seal_button", "start_button", "lobby_label")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_buss2")
+lobby_grid = NodePath("HBoxContainer/ColorRect/VBoxContainer/LobbyVBoxContainer")
+logs_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/Logs")
+seal_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/Seal")
+start_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/Start")
+lobby_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/LabelLobbies")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -43,32 +48,18 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="PaddingTop" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
+[node name="LabelLobbies" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
-
-[node name="LabelLobbies" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/PaddingTop"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
 text = "Lobby Code: 1234"
 label_settings = ExtResource("2_q1sf8")
+horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
+[node name="LobbyVBoxContainer" type="VBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
+[node name="Logs" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
@@ -89,6 +80,7 @@ text = "Seal"
 
 [node name="Start" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+disabled = true
 text = "Start"
 
 [node name="PaddingBottom" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]

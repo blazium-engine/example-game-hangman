@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://menus/main_menu.gd" id="1_20biu"]
 [ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="2_3q8jx"]
 
-[node name="MainMenu" type="ColorRect" node_paths=PackedStringArray("peer_name_line_edit", "lobby_connection_label", "logs", "menu", "set_name_menu")]
+[node name="MainMenu" type="ColorRect" node_paths=PackedStringArray("peer_name_line_edit", "logs", "menu", "set_name_menu", "set_name_button")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -11,10 +11,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_20biu")
 peer_name_line_edit = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2/LineEdit")
-lobby_connection_label = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/Label")
 logs = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/Logs")
 menu = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer")
 set_name_menu = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2")
+set_name_button = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2/SetName")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -58,11 +58,6 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Lobby Service: Disconnected"
-horizontal_alignment = 1
-
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -73,6 +68,7 @@ alignment = 1
 
 [node name="SetName" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
+disabled = true
 text = "Set name"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer"]
@@ -92,10 +88,6 @@ text = "Host Lobby"
 [node name="HSeparator2" type="HSeparator" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ButtonCredits" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Credits"
-
 [node name="Logs" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -103,6 +95,8 @@ layout_mode = 2
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
+[connection signal="text_changed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_submitted" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2/SetName" to="." method="_on_set_name_pressed"]
 [connection signal="pressed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/ButtonJoinPublic" to="." method="_on_button_join_public_pressed"]
 [connection signal="pressed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/ButtonLobby" to="." method="_on_button_lobby_pressed"]

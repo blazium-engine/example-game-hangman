@@ -3,13 +3,18 @@
 [ext_resource type="Script" path="res://menus/lobby_creator.gd" id="1_3c7gg"]
 [ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="1_pgywf"]
 
-[node name="LobbyCreator" type="ColorRect"]
+[node name="LobbyCreator" type="ColorRect" node_paths=PackedStringArray("password_line_edit", "logs_label", "max_players_label", "title_label", "create_button")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3c7gg")
+password_line_edit = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy/PasswordLineEdit")
+logs_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/Logs")
+max_players_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/MaxPlayers")
+title_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2/Title")
+create_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/ButtonCreateLobby")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -42,25 +47,11 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="PaddingTop" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
+[node name="LabelLobbies" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
-
-[node name="LabelLobbies" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/PaddingTop"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Lobbies"
+text = "Create Lobby"
 label_settings = ExtResource("1_pgywf")
+horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
@@ -71,7 +62,7 @@ alignment = 1
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2"]
+[node name="TitleLabel" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2"]
 layout_mode = 2
 text = "Title:"
 
@@ -90,7 +81,7 @@ text = "Password:"
 [node name="CheckBox" type="CheckButton" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy"]
 layout_mode = 2
 
-[node name="CheckButton" type="LineEdit" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy"]
+[node name="PasswordLineEdit" type="LineEdit" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy"]
 visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -107,7 +98,7 @@ text = "Players:"
 layout_mode = 2
 text = "<"
 
-[node name="Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers"]
+[node name="MaxPlayers" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers"]
 layout_mode = 2
 text = "2"
 
@@ -117,6 +108,7 @@ text = ">"
 
 [node name="ButtonCreateLobby" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+disabled = true
 text = "Create Lobby"
 
 [node name="Logs" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
@@ -138,6 +130,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
+[connection signal="text_changed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2/Title" to="." method="_on_title_text_changed"]
 [connection signal="toggled" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy/CheckBox" to="." method="_on_check_box_toggled"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/ButtonDecrement" to="." method="_on_button_decrement_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/ButtonIncrement" to="." method="_on_button_increment_pressed"]
