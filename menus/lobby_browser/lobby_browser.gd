@@ -22,6 +22,7 @@ func load_lobbies():
 	for lobby in result.lobbies:
 		var lobby_container := container_lobby_scene.instantiate()
 		lobby_container.lobby = lobby
+		lobby_container.logs = logs
 		lobby_grid.add_child(lobby_container)
 		
 

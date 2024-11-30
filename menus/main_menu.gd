@@ -5,6 +5,7 @@ var lobby_creator_scene : PackedScene = load("res://menus/lobby_creator.tscn")
 var reconnects = 0
 @onready var peer_name : LineEdit = $HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/LineEdit
 @onready var lobby_connection_label : Label = $HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/Label
+@onready var logs : Label = $HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/Logs
 
 func _ready() -> void:
 	peer_name.text = GlobalLobbyClient.peer.peer_name
@@ -41,4 +42,6 @@ func _on_button_lobby_pressed() -> void:
 func _on_line_edit_text_submitted(new_text: String) -> void:
 	var result :LobbyResult= await GlobalLobbyClient.set_peer_name(new_text).finished
 	if result.has_error():
-		push_error(result.error)
+		logs.text = result.error
+	else:
+		logs.text = "Success"
