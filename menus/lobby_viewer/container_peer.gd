@@ -23,6 +23,6 @@ func _on_button_pressed() -> void:
 	else:
 		logs.text = "Success"
 
-func _on_peer_ready(updated_peer: LobbyPeer, ready: bool):
+func _on_peer_ready(updated_peer: LobbyPeer, p_ready: bool):
 	if updated_peer.id == peer.id:
-		_peer_ready.text = "Ready: " + str(ready)
+		_peer_ready.text = "Ready: " + str(p_ready)
