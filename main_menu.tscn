@@ -3,36 +3,18 @@
 [ext_resource type="Script" path="res://menus/main_menu.gd" id="1_20biu"]
 [ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="2_3q8jx"]
 
-[node name="MainMenu" type="ColorRect"]
+[node name="MainMenu" type="ColorRect" node_paths=PackedStringArray("peer_name_line_edit", "lobby_connection_label", "logs", "menu", "set_name_menu")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_20biu")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="PaddingLeft" type="Control" parent="HBoxContainer"]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer"]
-custom_minimum_size = Vector2(512, 512)
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.325441, 0.325441, 0.325441, 1)
-
-[node name="PaddingRight" type="Control" parent="HBoxContainer"]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
+peer_name_line_edit = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2/LineEdit")
+lobby_connection_label = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/Label")
+logs = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/Logs")
+menu = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer")
+set_name_menu = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -65,44 +47,36 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="PaddingTop" type="Control" parent="HBoxContainer2/ColorRect/VBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
+[node name="Title" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer"]
 layout_mode = 2
-
-[node name="LabelLobbies" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer/PaddingTop"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
 text = "Hangman"
 label_settings = ExtResource("2_3q8jx")
+horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2/ColorRect/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-alignment = 1
+text = "Lobby Service: Disconnected"
+horizontal_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 placeholder_text = "Name:"
 alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="SetName" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
-text = "Lobby Service: Disconnected"
-horizontal_alignment = 1
+text = "Set name"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer"]
+layout_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -125,14 +99,10 @@ text = "Credits"
 [node name="Logs" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PaddingBottom" type="Control" parent="HBoxContainer2/ColorRect/VBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
 [node name="PaddingRight" type="Control" parent="HBoxContainer2"]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
-[connection signal="text_submitted" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2/SetName" to="." method="_on_set_name_pressed"]
 [connection signal="pressed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/ButtonJoinPublic" to="." method="_on_button_join_public_pressed"]
 [connection signal="pressed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/ButtonLobby" to="." method="_on_button_lobby_pressed"]
