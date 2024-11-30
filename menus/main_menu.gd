@@ -9,18 +9,14 @@ var reconnects = 0
 
 func _ready() -> void:
 	peer_name.text = GlobalLobbyClient.peer.peer_name
-	GlobalLobbyClient.append_log.connect(_on_logs)
 	GlobalLobbyClient.disconnected_from_lobby.connect(_on_disconnect)
 	connect_to_lobby()
 
 func connect_to_lobby():
-	#GlobalLobbyClient.server_url = "ws://localhost:8080/connect"
-	var connected = GlobalLobbyClient.connect_to_lobby("Hangman")
+	GlobalLobbyClient.server_url = "ws://localhost:8080/connect"
+	var connected = GlobalLobbyClient.connect_to_lobby("hangman")
 	if connected:
 		lobby_connection_label.text = "Lobby Service: Connected"
-
-func _on_logs(command: String, logs:String):
-	print(command, " ", logs)
 	
 func _on_disconnect():
 	lobby_connection_label.text = "Lobby Service: Retrying"

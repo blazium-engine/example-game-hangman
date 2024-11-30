@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://b8t11ds20n02q"]
 
-[sub_resource type="LobbyInfo" id="LobbyInfo_7jg43"]
+[sub_resource type="LobbyInfo" id="LobbyInfo_1rdvt"]
 
-[sub_resource type="LobbyPeer" id="LobbyPeer_10p5g"]
+[sub_resource type="LobbyPeer" id="LobbyPeer_23tj8"]
 
 [node name="LobbyClient" type="LobbyClient"]
-lobby = SubResource("LobbyInfo_7jg43")
-peer = SubResource("LobbyPeer_10p5g")
+lobby = SubResource("LobbyInfo_1rdvt")
+peer = SubResource("LobbyPeer_23tj8")
