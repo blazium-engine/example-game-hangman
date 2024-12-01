@@ -118,7 +118,5 @@ func _on_chat_button_pressed() -> void:
 		logs_label.text = result.error
 	chat_input.clear()
 
-
-
-func _on_chat_input_text_submitted(new_text: String) -> void:
+func _on_chat_input_text_submitted(_new_text: String) -> void:
 	_on_chat_button_pressed()

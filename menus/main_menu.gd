@@ -13,7 +13,8 @@ func _ready() -> void:
 	peer_name_line_edit.text = GlobalLobbyClient.peer.peer_name
 	menu.visible = GlobalLobbyClient.peer.peer_name != ""
 	set_name_menu.visible = GlobalLobbyClient.peer.peer_name == ""
-	logs.text = ""
+	if GlobalLobbyClient.peer.peer_name != "":
+		logs.text = ""
 
 func _on_button_join_public_pressed() -> void:
 	get_tree().change_scene_to_packed(lobby_browser_scene)
