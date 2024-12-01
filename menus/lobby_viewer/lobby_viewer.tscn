@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://menus/lobby_viewer/lobby_viewer.gd" id="1_buss2"]
 [ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="2_q1sf8"]
 
-[node name="LobbyViewer" type="ColorRect" node_paths=PackedStringArray("lobby_grid", "logs_label", "seal_button", "start_button", "lobby_label")]
+[node name="LobbyViewer" type="ColorRect" node_paths=PackedStringArray("lobby_grid", "logs_label", "seal_button", "start_button", "lobby_label", "chat_input", "chat_text")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -15,6 +15,8 @@ logs_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/Logs")
 seal_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/Seal")
 start_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/Start")
 lobby_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/LabelLobbies")
+chat_input = NodePath("HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/ChatInput")
+chat_text = NodePath("HBoxContainer/ColorRect/VBoxContainer/RichTextLabel")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -59,6 +61,25 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+bbcode_enabled = true
+scroll_following = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="ChatInput" type="LineEdit" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Chat:"
+
+[node name="ChatButton" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Send"
+
 [node name="Logs" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 
@@ -66,22 +87,25 @@ layout_mode = 2
 layout_mode = 2
 alignment = 1
 
-[node name="ButtonMainMenu" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Leave Lobby"
-
 [node name="Ready" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Ready"
 
 [node name="Seal" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Seal"
 
 [node name="Start" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 disabled = true
 text = "Start"
+
+[node name="ButtonMainMenu" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Leave Lobby"
 
 [node name="PaddingBottom" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]
 custom_minimum_size = Vector2(64, 64)
@@ -91,7 +115,9 @@ layout_mode = 2
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
+[connection signal="text_submitted" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/ChatInput" to="." method="_on_chat_input_text_submitted"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/ChatButton" to="." method="_on_chat_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/Ready" to="." method="_on_ready_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/Seal" to="." method="_on_seal_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]

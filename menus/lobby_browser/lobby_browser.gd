@@ -1,9 +1,10 @@
 extends ColorRect
 
 var main_menu_scene : PackedScene = load("res://main_menu.tscn")
-@onready var lobby_grid : VBoxContainer = $HBoxContainer/ColorRect/VBoxContainer/VBoxContainer
-@onready var logs :Label = $HBoxContainer/ColorRect/VBoxContainer/Label
-@onready var page_label : Label = $HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/Page
+var lobby_creator_scene : PackedScene = load("res://menus/lobby_creator.tscn")
+@export var lobby_grid : VBoxContainer
+@export var logs :Label
+@export var page_label : Label
 var container_lobby_scene :PackedScene = preload("res://menus/lobby_browser/container_lobby.tscn")
 
 var page = 0
@@ -43,3 +44,7 @@ func _on_right_pressed() -> void:
 	page += 1
 	page_label.text = str(page + 1)
 	load_lobbies()
+
+
+func _on_create_lobby_pressed() -> void:
+	get_tree().change_scene_to_packed(lobby_creator_scene)

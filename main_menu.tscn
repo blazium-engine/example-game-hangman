@@ -11,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_20biu")
 peer_name_line_edit = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2/LineEdit")
-logs = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/Logs")
+logs = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/Logs")
 menu = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer")
 set_name_menu = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2")
 set_name_button = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2/SetName")
@@ -79,6 +79,7 @@ layout_mode = 2
 
 [node name="ButtonJoinPublic" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Browse Lobbies"
 
 [node name="ButtonLobby" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
@@ -88,8 +89,9 @@ text = "Host Lobby"
 [node name="HSeparator2" type="HSeparator" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Logs" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Logs" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+text = "Name is required"
 
 [node name="PaddingRight" type="Control" parent="HBoxContainer2"]
 custom_minimum_size = Vector2(256, 256)
