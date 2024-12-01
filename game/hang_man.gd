@@ -45,11 +45,11 @@ func set_buttons_enabled(enabled: bool):
 		var node :Button= find_node_by_name(self, "Button" + letter)
 		node.disabled = !enabled
 
-func _received_data(data: Dictionary, from_peer: String):
+func _received_data(data: Dictionary, from_peer: LobbyPeer):
 		match data["command"]:
 			"count":
 				# Only host can set word length
-				if from_peer == GlobalLobbyClient.lobby.host:
+				if from_peer.id == GlobalLobbyClient.lobby.host:
 					# Disable host input until peers guess the word
 					if GlobalLobbyClient.is_host():
 						set_buttons_enabled(false)
@@ -62,7 +62,7 @@ func _received_data(data: Dictionary, from_peer: String):
 				var guess = data["letter"]
 				# Only peers can guess, this only calls on the host
 				var guessed = false
-				if from_peer != GlobalLobbyClient.lobby.host:
+				if from_peer.id != GlobalLobbyClient.lobby.host:
 					for i in len(letter_pad.word):
 						if letter_pad.word[i] == guess:
 							letter_pad.guessed_word[i] = guess
@@ -73,7 +73,7 @@ func _received_data(data: Dictionary, from_peer: String):
 					update_send_damage()
 			"update_word":
 				# Only host can update word
-				if from_peer == GlobalLobbyClient.lobby.host:
+				if from_peer.id == GlobalLobbyClient.lobby.host:
 					var update_word = data["word"]
 					# Host doesnt update his word
 					if GlobalLobbyClient.is_host():
@@ -81,7 +81,7 @@ func _received_data(data: Dictionary, from_peer: String):
 					letter_pad.update_word(update_word)
 			"take_damage":
 				# Only host can damage players
-				if from_peer == GlobalLobbyClient.lobby.host:
+				if from_peer.id == GlobalLobbyClient.lobby.host:
 					take_damage()
 
 func update_word_on_peers():

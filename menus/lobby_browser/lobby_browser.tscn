@@ -3,13 +3,16 @@
 [ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="1_bvw7k"]
 [ext_resource type="Script" path="res://menus/lobby_browser/lobby_browser.gd" id="1_cirsv"]
 
-[node name="LobbyBrowser" type="ColorRect"]
+[node name="LobbyBrowser" type="ColorRect" node_paths=PackedStringArray("lobby_grid", "logs", "page_label")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cirsv")
+lobby_grid = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer")
+logs = NodePath("HBoxContainer/ColorRect/VBoxContainer/Logs")
+page_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/Page")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -54,7 +57,7 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
+[node name="Logs" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
@@ -63,6 +66,7 @@ alignment = 1
 
 [node name="Left" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "<"
 
 [node name="Page" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2"]
@@ -71,6 +75,7 @@ text = "1"
 
 [node name="Right" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = ">"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
@@ -79,9 +84,15 @@ alignment = 1
 
 [node name="RefreshButton" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Refresh"
 
-[node name="ButtonMainMenu" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
+[node name="CreateLobby" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Create Lobby"
+
+[node name="ButtonMainMenu" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 text = "Main Menu"
 
@@ -96,4 +107,5 @@ layout_mode = 2
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/Left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/Right" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/CreateLobby" to="." method="_on_create_lobby_pressed"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]

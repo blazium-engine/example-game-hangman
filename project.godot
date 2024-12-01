@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 GlobalLobbyClient="*res://lobby_client.tscn"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [dotnet]
 
 project/assembly_name="example-game-hangman"
