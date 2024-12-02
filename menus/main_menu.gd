@@ -10,6 +10,10 @@ var lobby_creator_scene : PackedScene = load("res://menus/lobby_creator.tscn")
 @export var set_name_button: Button
 
 func _ready() -> void:
+	get_window().set_min_size(Vector2i(
+		ProjectSettings.get_setting("display/window/size/viewport_width"),
+		ProjectSettings.get_setting("display/window/size/viewport_height")
+	));
 	peer_name_line_edit.text = GlobalLobbyClient.peer.peer_name
 	menu.visible = GlobalLobbyClient.peer.peer_name != ""
 	set_name_menu.visible = GlobalLobbyClient.peer.peer_name == ""
