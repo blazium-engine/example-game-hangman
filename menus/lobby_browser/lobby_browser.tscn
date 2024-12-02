@@ -9,10 +9,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.0901961, 0.0117647, 0.203922, 1)
 script = ExtResource("1_cirsv")
-lobby_grid = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer")
+lobby_grid = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerLobbies")
 logs = NodePath("HBoxContainer/ColorRect/VBoxContainer/Logs")
-page_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/Page")
+page_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/HBoxContainerPages/Page")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -31,7 +32,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(512, 512)
 layout_mode = 2
 size_flags_horizontal = 3
-color = Color(0.325441, 0.325441, 0.325441, 1)
+color = Color(0.215686, 0.054902, 0.423529, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ColorRect"]
 custom_minimum_size = Vector2(512, 512)
@@ -52,28 +53,31 @@ text = "Lobbies"
 label_settings = ExtResource("1_bvw7k")
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
+[node name="VBoxContainerLobbies" type="VBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Logs" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
+horizontal_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
+[node name="HBoxContainerPages" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Left" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2"]
+[node name="Left" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainerPages"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "<"
 
-[node name="Page" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2"]
+[node name="Page" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainerPages"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "1"
+horizontal_alignment = 1
 
-[node name="Right" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2"]
+[node name="Right" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainerPages"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = ">"
@@ -104,8 +108,8 @@ layout_mode = 2
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/Left" to="." method="_on_left_pressed"]
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer2/Right" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainerPages/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainerPages/Right" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/CreateLobby" to="." method="_on_create_lobby_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]

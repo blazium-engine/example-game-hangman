@@ -45,7 +45,3 @@ func _on_button_decrement_pressed() -> void:
 
 func _on_title_text_changed(new_text: String) -> void:
 	create_button.disabled = new_text == ""
-	if create_button.disabled:
-		logs_label.text = "Title is required"
-	else:
-		logs_label.text = ""

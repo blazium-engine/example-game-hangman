@@ -8,6 +8,7 @@ var lobby_creator_scene : PackedScene = load("res://menus/lobby_creator.tscn")
 @export var menu: VBoxContainer
 @export var set_name_menu: VBoxContainer
 @export var set_name_button: Button
+@export var multiplayer_button: Button
 
 func _ready() -> void:
 	get_window().set_min_size(Vector2i(
@@ -35,15 +36,13 @@ func _on_set_name_pressed() -> void:
 	else:
 		menu.visible = true
 		set_name_menu.visible = false
+		multiplayer_button.grab_focus()
 
 
 func _on_line_edit_text_submitted(_new_text: String) -> void:
 	_on_set_name_pressed()
+	multiplayer_button.grab_focus()
 
 
 func _on_line_edit_text_changed(new_text: String) -> void:
 	set_name_button.disabled = new_text == ""
-	if set_name_button.disabled:
-		logs.text = "Name is required"
-	else:
-		logs.text = ""

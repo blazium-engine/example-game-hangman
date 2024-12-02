@@ -1,22 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjp8uk6p1a5l7"]
+[gd_scene load_steps=5 format=3 uid="uid://cjp8uk6p1a5l7"]
 
 [ext_resource type="Script" path="res://menus/main_menu.gd" id="1_20biu"]
 [ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="2_3q8jx"]
+[ext_resource type="Script" path="res://menus/general/Autofocus.gd" id="3_rsdx6"]
+[ext_resource type="Script" path="res://menus/general/QuitButton.gd" id="3_triwu"]
 
-[node name="MainMenu" type="ColorRect" node_paths=PackedStringArray("peer_name_line_edit", "logs", "menu", "set_name_menu", "set_name_button")]
+[node name="MainMenu" type="ColorRect" node_paths=PackedStringArray("peer_name_line_edit", "logs", "menu", "set_name_menu", "set_name_button", "multiplayer_button")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.0901961, 0.0117647, 0.203922, 1)
 script = ExtResource("1_20biu")
-peer_name_line_edit = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2/LineEdit")
-logs = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/Logs")
-menu = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer")
-set_name_menu = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2")
-set_name_button = NodePath("HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2/SetName")
+peer_name_line_edit = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName/LineEdit")
+logs = NodePath("HBoxContainer/ColorRect/VBoxContainer/Logs")
+menu = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerSelection")
+set_name_menu = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName")
+set_name_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName/SetName")
+multiplayer_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerSelection/ButtonMultiplayer")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,17 +29,17 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="PaddingLeft" type="Control" parent="HBoxContainer2"]
+[node name="PaddingLeft" type="Control" parent="HBoxContainer"]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer2"]
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer"]
 custom_minimum_size = Vector2(512, 512)
 layout_mode = 2
 size_flags_horizontal = 3
-color = Color(0.325441, 0.325441, 0.325441, 1)
+color = Color(0.215686, 0.054902, 0.423529, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2/ColorRect"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ColorRect"]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -45,60 +49,65 @@ offset_left = -256.0
 offset_right = 256.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
 
-[node name="Title" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer"]
+[node name="Title" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 text = "Hangman"
 label_settings = ExtResource("2_3q8jx")
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2/ColorRect/VBoxContainer"]
+[node name="PaddingTop" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-size_flags_vertical = 3
+
+[node name="VBoxContainerName" type="VBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName"]
+layout_mode = 2
+placeholder_text = "Name (required)"
 alignment = 1
+script = ExtResource("3_rsdx6")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2"]
-layout_mode = 2
-placeholder_text = "Name:"
-alignment = 1
-
-[node name="SetName" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2"]
+[node name="SetName" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName"]
 layout_mode = 2
 disabled = true
 text = "Set name"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer"]
+[node name="VBoxContainerSelection" type="VBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="ButtonJoinPublic" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="ButtonMultiplayer" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerSelection"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Browse Lobbies"
+text = "Multiplayer"
 
-[node name="ButtonLobby" type="Button" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Host Lobby"
-
-[node name="HSeparator2" type="HSeparator" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 
-[node name="Logs" type="Label" parent="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer"]
+[node name="Logs" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
-text = "Name is required"
+horizontal_alignment = 1
 
-[node name="PaddingRight" type="Control" parent="HBoxContainer2"]
+[node name="Padding2" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonQuit" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Quit
+"
+script = ExtResource("3_triwu")
+
+[node name="PaddingBottom" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="PaddingRight" type="Control" parent="HBoxContainer"]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
-[connection signal="text_changed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2/LineEdit" to="." method="_on_line_edit_text_changed"]
-[connection signal="text_submitted" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2/LineEdit" to="." method="_on_line_edit_text_submitted"]
-[connection signal="pressed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer2/SetName" to="." method="_on_set_name_pressed"]
-[connection signal="pressed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/ButtonJoinPublic" to="." method="_on_button_join_public_pressed"]
-[connection signal="pressed" from="HBoxContainer2/ColorRect/VBoxContainer/VBoxContainer/VBoxContainer/ButtonLobby" to="." method="_on_button_lobby_pressed"]
+[connection signal="text_changed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_submitted" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName/SetName" to="." method="_on_set_name_pressed"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerSelection/ButtonMultiplayer" to="." method="_on_button_join_public_pressed"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmwdqnvuk8nbk"]
+[gd_scene load_steps=4 format=3 uid="uid://dmwdqnvuk8nbk"]
 
 [ext_resource type="Script" path="res://menus/lobby_creator.gd" id="1_3c7gg"]
 [ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="1_pgywf"]
+[ext_resource type="Script" path="res://menus/general/Autofocus.gd" id="3_j2gh6"]
 
 [node name="LobbyCreator" type="ColorRect" node_paths=PackedStringArray("password_line_edit", "logs_label", "max_players_label", "title_label", "create_button")]
 anchors_preset = 15
@@ -9,10 +10,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.0901961, 0.0117647, 0.203922, 1)
 script = ExtResource("1_3c7gg")
-password_line_edit = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy/HBoxContainer/PasswordLineEdit")
+password_line_edit = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy/PasswordLineEdit")
 logs_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/Logs")
-max_players_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/HBoxContainer/MaxPlayers")
+max_players_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/MaxPlayers")
 title_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2/Title")
 create_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonCreateLobby")
 
@@ -33,7 +35,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(512, 512)
 layout_mode = 2
 size_flags_horizontal = 3
-color = Color(0.325441, 0.325441, 0.325441, 1)
+color = Color(0.215686, 0.054902, 0.423529, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ColorRect"]
 layout_mode = 1
@@ -59,75 +61,68 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="HBoxContainerPrivacy2" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
-alignment = 1
 
-[node name="TitleLabel" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2"]
+[node name="Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2"]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Title:"
 
 [node name="Title" type="LineEdit" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+placeholder_text = "Lobby title (required)"
+alignment = 1
+script = ExtResource("3_j2gh6")
 
 [node name="HBoxContainerPrivacy" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
-alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy"]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Password:"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="CheckBox" type="CheckButton" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy/HBoxContainer"]
+[node name="CheckBox" type="CheckButton" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy"]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="PasswordLineEdit" type="LineEdit" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy/HBoxContainer"]
+[node name="PasswordLineEdit" type="LineEdit" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy"]
 visible = false
-custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="HBoxContainerPlayers" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
-alignment = 1
 
-[node name="Label2" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers"]
+[node name="Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers"]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Players:"
+text = "Max Players:"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ButtonDecrement" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/HBoxContainer"]
+[node name="ButtonDecrement" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "<"
 
-[node name="MaxPlayers" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/HBoxContainer"]
+[node name="MaxPlayers" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="ButtonIncrement" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/HBoxContainer"]
+[node name="ButtonIncrement" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = ">"
 
 [node name="Logs" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Title is required"
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="VBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
@@ -152,8 +147,8 @@ custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
 [connection signal="text_changed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2/Title" to="." method="_on_title_text_changed"]
-[connection signal="toggled" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy/HBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/HBoxContainer/ButtonDecrement" to="." method="_on_button_decrement_pressed"]
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/HBoxContainer/ButtonIncrement" to="." method="_on_button_increment_pressed"]
+[connection signal="toggled" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/ButtonDecrement" to="." method="_on_button_decrement_pressed"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/ButtonIncrement" to="." method="_on_button_increment_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonCreateLobby" to="." method="_on_button_create_lobby_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
