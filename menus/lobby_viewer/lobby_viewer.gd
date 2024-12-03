@@ -40,6 +40,7 @@ func _ready() -> void:
 	GlobalLobbyClient.lobby_sealed.connect(_lobby_sealed)
 	GlobalLobbyClient.received_data.connect(_lobby_data)
 	GlobalLobbyClient.peer_ready.connect(_peer_ready)
+	GlobalLobbyClient.peer_messaged.connect(_peer_messaged)
 	GlobalLobbyClient.disconnected_from_lobby.connect(_disconnected_from_lobby)
 	if !GlobalLobbyClient.is_host():
 		seal_button.visible = false
@@ -71,6 +72,10 @@ func _peer_left(peer: LobbyPeer, _kicked: bool):
 func _peer_ready(_peer: LobbyPeer, _p_ready: bool):
 	update_start_button()
 
+func _peer_messaged(peer: LobbyPeer, chat_message: String):
+	var message :String=  "[b]" + peer.peer_name + "[/b]: " + chat_message + "\n"
+	chat_text.text += message
+
 func _disconnected_from_lobby():
 	get_tree().change_scene_to_packed(main_menu_scene)
 
@@ -82,23 +87,15 @@ func _lobby_data(data: Dictionary, from_peer: LobbyPeer):
 		"start_game":
 			if from_peer.id == GlobalLobbyClient.lobby.host:
 				get_tree().change_scene_to_packed(hangman_scene)
-		"send_chat":
-			if from_peer.id != GlobalLobbyClient.lobby.host || GlobalLobbyClient.is_host():
-				var message :String=  "[b]" + from_peer.peer_name + "[/b]: " + data["data"] + "\n"
-				var result :LobbyResult = await GlobalLobbyClient.lobby_data({"command": "receive_chat", "data": message }).finished
-				if result.has_error():
-					logs_label.text = result.error
-		"receive_chat":
-			chat_text.text += data["data"]
 
 func _on_ready_pressed() -> void:
-	var result :LobbyResult = await GlobalLobbyClient.lobby_ready(!GlobalLobbyClient.peer.ready).finished
+	var result :LobbyResult = await GlobalLobbyClient.set_lobby_ready(!GlobalLobbyClient.peer.ready).finished
 	if result.has_error():
 		logs_label.text = result.error
 
 
 func _on_seal_pressed() -> void:
-	var result :LobbyResult = await GlobalLobbyClient.seal_lobby(!GlobalLobbyClient.lobby.sealed).finished
+	var result :LobbyResult = await GlobalLobbyClient.set_lobby_sealed(!GlobalLobbyClient.lobby.sealed).finished
 	if result.has_error():
 		logs_label.text = result.error
 
@@ -107,7 +104,7 @@ func _lobby_sealed(_sealed: bool):
 	update_start_button()
 
 func _on_start_pressed() -> void:
-	var result :LobbyResult = await GlobalLobbyClient.lobby_data({"command": "start_game"}).finished
+	var result :LobbyResult = await GlobalLobbyClient.send_lobby_data({"command": "start_game"}).finished
 	if result.has_error():
 		logs_label.text = result.error
 
@@ -115,7 +112,7 @@ func _on_start_pressed() -> void:
 func _on_chat_button_pressed() -> void:
 	if chat_input.text.is_empty():
 		return
-	var result :LobbyResult = await GlobalLobbyClient.lobby_data({"command": "send_chat", "data": chat_input.text }).finished
+	var result :LobbyResult = await GlobalLobbyClient.send_chat_message(chat_input.text).finished
 	if result.has_error():
 		logs_label.text = result.error
 	chat_input.clear()

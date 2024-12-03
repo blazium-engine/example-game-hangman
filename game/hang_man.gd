@@ -18,7 +18,7 @@ func _ready() -> void:
 	body_parts = [head, body, leftArm, rightArm, leftLeg, rightLeg]
 	GlobalLobbyClient.received_data.connect(_received_data)
 	GlobalLobbyClient.lobby_left.connect(_lobby_left)
-	GlobalLobbyClient.append_log.connect(_append_log)
+	GlobalLobbyClient.log_updated.connect(_append_log)
 	# Host sets the word initially
 	if !GlobalLobbyClient.is_host():
 		set_buttons_enabled(false)
@@ -85,7 +85,7 @@ func _received_data(data: Dictionary, from_peer: LobbyPeer):
 					take_damage()
 
 func update_word_on_peers():
-	var result : LobbyResult = await GlobalLobbyClient.lobby_data({"command": "update_word", "word": letter_pad.guessed_word}).finished
+	var result : LobbyResult = await GlobalLobbyClient.send_lobby_data({"command": "update_word", "word": letter_pad.guessed_word}).finished
 	if result.has_error():
 		logs.text = result.error
 	if letter_pad.guessed_word == letter_pad.word:
@@ -93,7 +93,7 @@ func update_word_on_peers():
 		leave_lobby()
 
 func update_send_damage():
-	var result : LobbyResult = await GlobalLobbyClient.lobby_data({"command": "take_damage"}).finished
+	var result : LobbyResult = await GlobalLobbyClient.send_lobby_data({"command": "take_damage"}).finished
 	if result.has_error():
 		logs.text = result.error
 
@@ -116,12 +116,12 @@ func _lobby_left():
 	get_tree().change_scene_to_packed(main_menu_scene)
 
 func _on_set_word_pressed() -> void:
-	var result : LobbyResult = await GlobalLobbyClient.lobby_data({"command": "count", "count": len(letter_pad.word) / 2}).finished
+	var result : LobbyResult = await GlobalLobbyClient.send_lobby_data({"command": "count", "count": int(len(letter_pad.word)) / 2}).finished
 	if result.has_error():
 		logs.text = result.error
 
 func _append_log(command: String, message: String):
-	logs.text = message
+	logs.text = command + " " + message
 
 func _on_leave_pressed() -> void:
 	leave_lobby()
