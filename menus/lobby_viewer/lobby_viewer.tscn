@@ -90,7 +90,6 @@ text = "Ready"
 [node name="Seal" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-disabled = true
 text = "Seal"
 
 [node name="Start" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]

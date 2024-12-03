@@ -24,9 +24,7 @@ func _ready() -> void:
 
 
 func load_lobbies() -> void:
-	prints("y", page)
-	var result : ListLobbyResult = await GlobalLobbyClient.list_lobby(page * 10, 10).finished
-	print("x", page)
+	var result : ListLobbyResult = await GlobalLobbyClient.list_lobbies(page * 10, 10).finished
 	if result.has_error():
 		logs.text = result.error
 	for child in lobby_grid.get_children():
@@ -36,7 +34,6 @@ func load_lobbies() -> void:
 		lobby_container.lobby = lobby
 		lobby_container.logs = logs
 		lobby_grid.add_child(lobby_container)
-	prints(result.lobbies.size())
 	right_button.disabled = result.lobbies.size() != 10
 	left_button.disabled = page == 0
 

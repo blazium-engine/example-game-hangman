@@ -27,6 +27,6 @@ func letterPressed(buttonId: int):
 		word_label.text = word
 	else:
 		# Send the letter to the host
-		var result :LobbyResult = await GlobalLobbyClient.lobby_data({"command": "guess", "letter": letter}).finished
+		var result :LobbyResult = await GlobalLobbyClient.send_lobby_data({"command": "guess", "letter": letter}).finished
 		if result.has_error():
 			logs.text = result.error

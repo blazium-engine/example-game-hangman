@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://lobby_client.gd" id="1_rnl5w"]
 
-[sub_resource type="LobbyInfo" id="LobbyInfo_rt5om"]
+[sub_resource type="LobbyInfo" id="LobbyInfo_ids8e"]
 
-[sub_resource type="LobbyPeer" id="LobbyPeer_aohe4"]
+[sub_resource type="LobbyPeer" id="LobbyPeer_ujqje"]
 
 [node name="LobbyClient" type="LobbyClient"]
-lobby = SubResource("LobbyInfo_rt5om")
-peer = SubResource("LobbyPeer_aohe4")
+lobby = SubResource("LobbyInfo_ids8e")
+peer = SubResource("LobbyPeer_ujqje")
 script = ExtResource("1_rnl5w")
