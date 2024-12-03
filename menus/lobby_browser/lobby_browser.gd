@@ -24,7 +24,7 @@ func _ready() -> void:
 
 
 func load_lobbies() -> void:
-	var result : ListLobbyResult = await GlobalLobbyClient.list_lobbies(page * 10, 10).finished
+	var result : ListLobbyResult = await GlobalLobbyClient.list_lobbies("", -1, [], page * 10, 10).finished
 	if result.has_error():
 		logs.text = result.error
 	for child in lobby_grid.get_children():

@@ -111,12 +111,13 @@ func leave_lobby():
 	else:
 		logs.text = "Left Succesfuly"
 
-func _lobby_left():
+func _lobby_left(_kicked: bool):
 	await get_tree().create_timer(0.5).timeout
 	get_tree().change_scene_to_packed(main_menu_scene)
 
+@warning_ignore("integer_division")
 func _on_set_word_pressed() -> void:
-	var result : LobbyResult = await GlobalLobbyClient.send_lobby_data({"command": "count", "count": int(len(letter_pad.word)) / 2}).finished
+	var result : LobbyResult = await GlobalLobbyClient.send_lobby_data({"command": "count", "count": len(letter_pad.word) / 2}).finished
 	if result.has_error():
 		logs.text = result.error
 

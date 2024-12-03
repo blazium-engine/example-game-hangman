@@ -79,7 +79,7 @@ func _peer_messaged(peer: LobbyPeer, chat_message: String):
 func _disconnected_from_lobby():
 	get_tree().change_scene_to_packed(main_menu_scene)
 
-func _lobby_left():
+func _lobby_left(_kicked: bool):
 	get_tree().change_scene_to_packed(main_menu_scene)
 
 func _lobby_data(data: Dictionary, from_peer: LobbyPeer):

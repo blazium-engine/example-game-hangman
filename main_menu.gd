@@ -15,6 +15,8 @@ var lobby_creator_scene : PackedScene = load("res://menus/lobby_creator.tscn")
 
 func _ready() -> void:
 	get_tree().get_root().set_min_size(Vector2i(1280, 720));
+	GlobalLobbyClient.log_updated.connect(_log_updated)
+	GlobalLobbyClient.connected_to_lobby.connect(_connected_to_lobby)
 	peer_name_line_edit.text = GlobalLobbyClient.peer.peer_name
 	menu.visible = GlobalLobbyClient.peer.peer_name != ""
 	set_name_menu.visible = GlobalLobbyClient.peer.peer_name == ""
@@ -23,6 +25,20 @@ func _ready() -> void:
 	if not (OS.get_name() in ["Android", "iOS", "Web"]):
 		quit_margin.show()
 		quit_margin.add_child(QuitButton.new())
+
+func _connected_to_lobby(peer: LobbyPeer, _reconnection_token: String):
+	if peer.peer_name != "":
+		menu.visible = true
+		set_name_menu.visible = false
+		multiplayer_button.grab_focus()
+	else:
+		menu.visible = false
+		set_name_menu.visible = true
+	logs.text = ""
+
+func _log_updated(command: String, logs_text: String):
+	if command == "error":
+		logs.text = command + " " + logs_text
 
 func _on_button_join_public_pressed() -> void:
 	get_tree().change_scene_to_packed(lobby_browser_scene)
