@@ -1,4 +1,4 @@
-extends ColorRect
+extends PanelContainer
 
 var main_menu_scene : PackedScene = load("res://main_menu.tscn")
 var hangman_scene : PackedScene = load("res://game/hang_man.tscn")
@@ -10,6 +10,8 @@ var container_peer_scene :PackedScene = preload("res://menus/lobby_viewer/contai
 @export var lobby_label: Label
 @export var chat_input: LineEdit
 @export var chat_text : RichTextLabel
+@export var left_spacer: Control
+@export var right_spacer: Control
 
 var title := ""
 
@@ -120,3 +122,9 @@ func _on_chat_button_pressed() -> void:
 
 func _on_chat_input_text_submitted(_new_text: String) -> void:
 	_on_chat_button_pressed()
+
+
+func _on_resized() -> void:
+	var show_spacers = size.x > 600
+	left_spacer.visible = show_spacers
+	right_spacer.visible = show_spacers

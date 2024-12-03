@@ -1,115 +1,128 @@
 [gd_scene load_steps=3 format=3 uid="uid://7blyjegi70l6"]
 
-[ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="1_bvw7k"]
 [ext_resource type="Script" path="res://menus/lobby_browser/lobby_browser.gd" id="1_cirsv"]
+[ext_resource type="PackedScene" uid="uid://b2rg6aqw3tdmq" path="res://assets/blazium.tscn" id="2_musv1"]
 
-[node name="LobbyBrowser" type="ColorRect" node_paths=PackedStringArray("lobby_grid", "logs", "page_label")]
+[node name="LobbyBrowser" type="PanelContainer" node_paths=PackedStringArray("lobby_grid", "logs", "page_label", "left_button", "right_button", "left_spacer", "right_spacer")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0901961, 0.0117647, 0.203922, 1)
+theme_type_variation = &"BgPanel"
 script = ExtResource("1_cirsv")
-lobby_grid = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerLobbies")
-logs = NodePath("HBoxContainer/ColorRect/VBoxContainer/Logs")
-page_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/HBoxContainerPages/Page")
+lobby_grid = NodePath("HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/VBoxContainerLobbies")
+logs = NodePath("HBoxContainer/PanelContainer/VBoxContainer/Logs")
+page_label = NodePath("HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainerPages/Page")
+left_button = NodePath("HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainerPages/Left")
+right_button = NodePath("HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainerPages/Right")
+left_spacer = NodePath("HBoxContainer/LeftSpacer")
+right_spacer = NodePath("HBoxContainer/RightSpacer")
+metadata/_edit_lock_ = true
+
+[node name="Blazium" parent="." instance=ExtResource("2_musv1")]
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 alignment = 1
 
-[node name="PaddingLeft" type="Control" parent="HBoxContainer"]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer"]
-custom_minimum_size = Vector2(512, 512)
+[node name="LeftSpacer" type="Control" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-color = Color(0.215686, 0.054902, 0.423529, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ColorRect"]
-custom_minimum_size = Vector2(512, 512)
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -103.5
-offset_right = 103.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_type_variation = &"ContentPanel"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
 alignment = 1
 
-[node name="LabelLobbies" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
+[node name="LabelLobbies" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"HeaderLarge"
 text = "Lobbies"
-label_settings = ExtResource("1_bvw7k")
 horizontal_alignment = 1
 
-[node name="VBoxContainerLobbies" type="VBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 256)
 layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"PanelScroll"
+follow_focus = true
+
+[node name="VBoxContainerLobbies" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Logs" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
+[node name="Logs" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"HeaderSmall"
 horizontal_alignment = 1
 
-[node name="HBoxContainerPages" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HBoxContainerPages" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Left" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainerPages"]
+[node name="Left" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainerPages"]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
+disabled = true
 text = "<"
 
-[node name="Page" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainerPages"]
+[node name="Page" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainerPages"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1"
 horizontal_alignment = 1
 
-[node name="Right" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainerPages"]
+[node name="Right" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainerPages"]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
+disabled = true
 text = ">"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 8
 alignment = 1
 
-[node name="RefreshButton" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
+[node name="RefreshButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Refresh"
 
-[node name="CreateLobby" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
+[node name="CreateLobby" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Create Lobby"
 
-[node name="ButtonMainMenu" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer"]
+[node name="ButtonMainMenu" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-text = "Main Menu"
+text = "Back Main Menu"
 
-[node name="PaddingBottom" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
+[node name="RightSpacer" type="Control" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="PaddingRight" type="Control" parent="HBoxContainer"]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainerPages/Left" to="." method="_on_left_pressed"]
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainerPages/Right" to="." method="_on_right_pressed"]
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/CreateLobby" to="." method="_on_create_lobby_pressed"]
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
+[connection signal="resized" from="." to="." method="_on_resized"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainerPages/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainerPages/Right" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer/CreateLobby" to="." method="_on_create_lobby_pressed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
