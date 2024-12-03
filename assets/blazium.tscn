@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2rg6aqw3tdmq"]
+
+[ext_resource type="Texture2D" uid="uid://c1vboae5sw40i" path="res://assets/Blazium.svg" id="1_f5cqw"]
+
+[node name="Blazium" type="TextureRect"]
+self_modulate = Color(1, 1, 1, 0.0196078)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_f5cqw")
+expand_mode = 1
+stretch_mode = 1

@@ -1,17 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjp8uk6p1a5l7"]
+[gd_scene load_steps=4 format=3 uid="uid://cjp8uk6p1a5l7"]
 
 [ext_resource type="Script" path="res://menus/main_menu.gd" id="1_20biu"]
-[ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="2_3q8jx"]
+[ext_resource type="PackedScene" uid="uid://b2rg6aqw3tdmq" path="res://assets/blazium.tscn" id="2_rnpcj"]
 [ext_resource type="Script" path="res://menus/general/Autofocus.gd" id="3_rsdx6"]
-[ext_resource type="Script" path="res://menus/general/QuitButton.gd" id="3_triwu"]
 
-[node name="MainMenu" type="ColorRect" node_paths=PackedStringArray("peer_name_line_edit", "logs", "menu", "set_name_menu", "set_name_button", "multiplayer_button")]
+[node name="MainMenu" type="PanelContainer" node_paths=PackedStringArray("peer_name_line_edit", "logs", "menu", "set_name_menu", "set_name_button", "multiplayer_button", "quit_margin", "left_spacer", "right_spacer")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0901961, 0.0117647, 0.203922, 1)
+theme_type_variation = &"BgPanel"
 script = ExtResource("1_20biu")
 peer_name_line_edit = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName/LineEdit")
 logs = NodePath("HBoxContainer/ColorRect/VBoxContainer/Logs")
@@ -19,41 +18,35 @@ menu = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerSelection")
 set_name_menu = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName")
 set_name_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName/SetName")
 multiplayer_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerSelection/ButtonMultiplayer")
+quit_margin = NodePath("HBoxContainer/ColorRect/VBoxContainer/QuitMargin")
+left_spacer = NodePath("HBoxContainer/LeftSpacer")
+right_spacer = NodePath("HBoxContainer/RightSpacer")
+
+[node name="Blazium" parent="." instance=ExtResource("2_rnpcj")]
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 alignment = 1
 
-[node name="PaddingLeft" type="Control" parent="HBoxContainer"]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer"]
-custom_minimum_size = Vector2(512, 512)
+[node name="LeftSpacer" type="Control" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-color = Color(0.215686, 0.054902, 0.423529, 1)
+
+[node name="ColorRect" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_type_variation = &"ContentPanel"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ColorRect"]
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -256.0
-offset_right = 256.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 
 [node name="Title" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"HeaderLarge"
 text = "Hangman"
-label_settings = ExtResource("2_3q8jx")
 horizontal_alignment = 1
 
 [node name="PaddingTop" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]
@@ -87,26 +80,26 @@ layout_mode = 2
 
 [node name="Logs" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"HeaderSmall"
 horizontal_alignment = 1
 
 [node name="Padding2" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ButtonQuit" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer"]
+[node name="QuitMargin" type="MarginContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
+visible = false
 layout_mode = 2
-text = "Quit
-"
-script = ExtResource("3_triwu")
 
 [node name="PaddingBottom" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="PaddingRight" type="Control" parent="HBoxContainer"]
-custom_minimum_size = Vector2(256, 256)
+[node name="RightSpacer" type="Control" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
+[connection signal="resized" from="." to="." method="_on_resized"]
 [connection signal="text_changed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName/LineEdit" to="." method="_on_line_edit_text_changed"]
 [connection signal="text_submitted" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName/SetName" to="." method="_on_set_name_pressed"]

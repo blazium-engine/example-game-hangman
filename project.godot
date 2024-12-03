@@ -23,6 +23,10 @@ GlobalLobbyClient="*res://lobby_client.tscn"
 
 project/assembly_name="example-game-hangman"
 
+[gui]
+
+theme/custom="res://theme/theme.tres"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

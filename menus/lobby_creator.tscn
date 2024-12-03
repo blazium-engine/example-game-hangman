@@ -1,58 +1,51 @@
 [gd_scene load_steps=4 format=3 uid="uid://dmwdqnvuk8nbk"]
 
 [ext_resource type="Script" path="res://menus/lobby_creator.gd" id="1_3c7gg"]
-[ext_resource type="LabelSettings" uid="uid://dhbiycipdoc0d" path="res://menus/header_label_settings.tres" id="1_pgywf"]
+[ext_resource type="PackedScene" uid="uid://b2rg6aqw3tdmq" path="res://assets/blazium.tscn" id="2_1te4o"]
 [ext_resource type="Script" path="res://menus/general/Autofocus.gd" id="3_j2gh6"]
 
-[node name="LobbyCreator" type="ColorRect" node_paths=PackedStringArray("password_line_edit", "logs_label", "max_players_label", "title_label", "create_button")]
+[node name="LobbyCreator" type="PanelContainer" node_paths=PackedStringArray("password_line_edit", "logs_label", "max_players_label", "title_label", "create_button", "left_spacer", "right_spacer")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0901961, 0.0117647, 0.203922, 1)
+theme_type_variation = &"BgPanel"
 script = ExtResource("1_3c7gg")
 password_line_edit = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy/PasswordLineEdit")
 logs_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/Logs")
 max_players_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/MaxPlayers")
 title_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2/Title")
 create_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonCreateLobby")
+left_spacer = NodePath("HBoxContainer/LeftSpacer")
+right_spacer = NodePath("HBoxContainer/RightSpacer")
+
+[node name="Blazium" parent="." instance=ExtResource("2_1te4o")]
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 alignment = 1
 
-[node name="PaddingLeft" type="Control" parent="HBoxContainer"]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer"]
-custom_minimum_size = Vector2(512, 512)
+[node name="LeftSpacer" type="Control" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-color = Color(0.215686, 0.054902, 0.423529, 1)
+
+[node name="ColorRect" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_type_variation = &"ContentPanel"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ColorRect"]
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -256.0
-offset_right = 256.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 alignment = 1
 
 [node name="LabelLobbies" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"HeaderLarge"
 text = "Create Lobby"
-label_settings = ExtResource("1_pgywf")
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
@@ -88,11 +81,14 @@ text = "Password:"
 
 [node name="CheckBox" type="CheckButton" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy"]
 layout_mode = 2
+flat = true
 
 [node name="PasswordLineEdit" type="LineEdit" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
+placeholder_text = "Password"
+alignment = 1
+editable = false
 
 [node name="HBoxContainerPlayers" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 31)
@@ -138,14 +134,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Main Menu"
 
-[node name="PaddingBottom" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
+[node name="RightSpacer" type="Control" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="PaddingRight" type="Control" parent="HBoxContainer"]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-
+[connection signal="resized" from="." to="." method="_on_resized"]
 [connection signal="text_changed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2/Title" to="." method="_on_title_text_changed"]
 [connection signal="toggled" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy/CheckBox" to="." method="_on_check_box_toggled"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/ButtonDecrement" to="." method="_on_button_decrement_pressed"]

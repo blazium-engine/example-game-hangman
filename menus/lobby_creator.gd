@@ -1,19 +1,22 @@
-extends Control
+extends PanelContainer
 
-var main_menu_scene : PackedScene = load("res://main_menu.tscn")
-var lobby_viewer_scene : PackedScene = load("res://menus/lobby_viewer/lobby_viewer.tscn")
-@export var password_line_edit :LineEdit
-@export var logs_label : Label
-@export var max_players_label : Label
-@export var title_label : LineEdit
+var main_menu_scene: PackedScene = load("res://main_menu.tscn")
+var lobby_viewer_scene: PackedScene = load("res://menus/lobby_viewer/lobby_viewer.tscn")
+@export var password_line_edit: LineEdit
+@export var logs_label: Label
+@export var max_players_label: Label
+@export var title_label: LineEdit
 @export var create_button: Button
+@export var left_spacer: Control
+@export var right_spacer: Control
+
 
 func _on_button_main_menu_pressed() -> void:
 	get_tree().change_scene_to_packed(main_menu_scene)
 
 
 func _on_check_box_toggled(toggled_on: bool) -> void:
-	password_line_edit.visible = toggled_on
+	password_line_edit.editable = toggled_on
 	if !toggled_on:
 		password_line_edit.text = ""
 
@@ -45,3 +48,9 @@ func _on_button_decrement_pressed() -> void:
 
 func _on_title_text_changed(new_text: String) -> void:
 	create_button.disabled = new_text == ""
+
+
+func _on_resized() -> void:
+	var show_spacers = size.x > 600
+	left_spacer.visible = show_spacers
+	right_spacer.visible = show_spacers
