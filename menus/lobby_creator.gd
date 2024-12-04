@@ -22,7 +22,7 @@ func _on_check_box_toggled(toggled_on: bool) -> void:
 
 
 func _on_button_create_lobby_pressed() -> void:
-	var result : ViewLobbyResult = await GlobalLobbyClient.create_lobby(title_label.text, int(max_players_label.text), password_line_edit.text).finished
+	var result : ViewLobbyResult = await GlobalLobbyClient.create_lobby(title_label.text, [], int(max_players_label.text), password_line_edit.text).finished
 	if result.has_error():
 		logs_label.text = result.error
 	else:
@@ -49,7 +49,9 @@ func _on_button_decrement_pressed() -> void:
 func _on_title_text_changed(new_text: String) -> void:
 	create_button.disabled = new_text == ""
 
-
+func _on_title_text_submitted(_new_text: String) -> void:
+	_on_button_create_lobby_pressed()
+	
 func _on_resized() -> void:
 	var show_spacers = size.x > 600
 	left_spacer.visible = show_spacers

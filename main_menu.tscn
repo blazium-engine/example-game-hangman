@@ -75,9 +75,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Multiplayer"
 
-[node name="HSeparator" type="HSeparator" parent="HBoxContainer/ColorRect/VBoxContainer"]
-layout_mode = 2
-
 [node name="Logs" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"HeaderSmall"
