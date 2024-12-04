@@ -9,7 +9,7 @@ func _ready() -> void:
 
 	disconnected_from_lobby.connect(_on_disconnect)
 	log_updated.connect(_on_log_updated)
-	server_url = "ws://localhost:8080/connect"
+	#server_url = "ws://localhost:8080/connect"
 	connected_to_lobby.connect(_connected_to_lobby)
 	connect_to_lobby()
 
