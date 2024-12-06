@@ -125,3 +125,7 @@ func _on_resized() -> void:
 	var show_spacers = size.x > 600
 	left_spacer.visible = show_spacers
 	right_spacer.visible = show_spacers
+
+func _input(event):
+	if Input.is_action_just_pressed("ui_cancel"):
+		_on_button_main_menu_pressed()

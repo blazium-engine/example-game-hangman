@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b2rg6aqw3tdmq" path="res://assets/blazium.tscn" id="2_rnpcj"]
 [ext_resource type="Script" path="res://menus/general/Autofocus.gd" id="3_rsdx6"]
 
-[node name="MainMenu" type="PanelContainer" node_paths=PackedStringArray("peer_name_line_edit", "logs", "menu", "set_name_menu", "set_name_button", "multiplayer_button", "quit_margin", "left_spacer", "right_spacer")]
+[node name="MainMenu" type="PanelContainer" node_paths=PackedStringArray("peer_name_line_edit", "name_label", "logs", "menu", "set_name_menu", "set_name_button", "multiplayer_button", "quit_button", "left_spacer", "right_spacer")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -13,12 +13,13 @@ grow_vertical = 2
 theme_type_variation = &"BgPanel"
 script = ExtResource("1_20biu")
 peer_name_line_edit = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName/LineEdit")
+name_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/NameLabel")
 logs = NodePath("HBoxContainer/ColorRect/VBoxContainer/Logs")
 menu = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerSelection")
 set_name_menu = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName")
 set_name_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName/SetName")
 multiplayer_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainerSelection/ButtonMultiplayer")
-quit_margin = NodePath("HBoxContainer/ColorRect/VBoxContainer/QuitMargin")
+quit_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/QuitButton")
 left_spacer = NodePath("HBoxContainer/LeftSpacer")
 right_spacer = NodePath("HBoxContainer/RightSpacer")
 
@@ -53,6 +54,13 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 
+[node name="NameLabel" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "Hello, name"
+horizontal_alignment = 1
+
 [node name="VBoxContainerName" type="VBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 
@@ -75,6 +83,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Multiplayer"
 
+[node name="ButtonSettings" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerSelection"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Settings"
+
 [node name="Logs" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"HeaderSmall"
@@ -84,13 +97,10 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="QuitMargin" type="MarginContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer"]
 visible = false
 layout_mode = 2
-
-[node name="PaddingBottom" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
+text = "Quit"
 
 [node name="RightSpacer" type="Control" parent="HBoxContainer"]
 layout_mode = 2
@@ -101,3 +111,5 @@ size_flags_horizontal = 3
 [connection signal="text_submitted" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName/SetName" to="." method="_on_set_name_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerSelection/ButtonMultiplayer" to="." method="_on_button_join_public_pressed"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerSelection/ButtonSettings" to="." method="_on_button_settings_pressed"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
