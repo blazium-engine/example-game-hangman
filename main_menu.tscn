@@ -49,6 +49,7 @@ layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "Hangman"
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="PaddingTop" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer"]
 custom_minimum_size = Vector2(60, 60)
