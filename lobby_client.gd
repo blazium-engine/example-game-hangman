@@ -32,5 +32,6 @@ func _on_disconnect(reason: String):
 		push_error("Cannot connect")
 		return
 	reconnects += 1
-	await get_tree().create_timer(2 * reconnects).timeout
+	if is_inside_tree():
+		await get_tree().create_timer(2 * reconnects).timeout
 	connect_to_lobby()

@@ -89,7 +89,8 @@ func update_word_on_peers():
 	if result.has_error():
 		logs.text = result.error
 	if letter_pad.guessed_word == letter_pad.word:
-		await get_tree().create_timer(0.5).timeout
+		if is_inside_tree():
+			await get_tree().create_timer(0.5).timeout
 		leave_lobby()
 
 func update_send_damage():
@@ -101,7 +102,8 @@ func take_damage():
 	var body_part :ColorRect= body_parts.pop_back()
 	body_part.visible = false
 	if body_parts.is_empty():
-		await get_tree().create_timer(0.5).timeout
+		if is_inside_tree():
+			await get_tree().create_timer(0.5).timeout
 		leave_lobby()
 
 func leave_lobby():
@@ -112,8 +114,9 @@ func leave_lobby():
 		logs.text = "Left Succesfuly"
 
 func _lobby_left(_kicked: bool):
-	await get_tree().create_timer(0.5).timeout
-	get_tree().change_scene_to_packed(main_menu_scene)
+	if is_inside_tree():
+		await get_tree().create_timer(0.5).timeout
+		get_tree().change_scene_to_packed(main_menu_scene)
 
 @warning_ignore("integer_division")
 func _on_set_word_pressed() -> void:
