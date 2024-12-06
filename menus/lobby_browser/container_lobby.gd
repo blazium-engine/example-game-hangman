@@ -20,4 +20,5 @@ func _on_button_pressed() -> void:
 	if result.has_error():
 		logs.text = result.error
 	else:
-		get_tree().change_scene_to_packed(lobby_viewer_scene)
+		if is_inside_tree():
+			get_tree().change_scene_to_packed(lobby_viewer_scene)

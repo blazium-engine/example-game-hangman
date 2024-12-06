@@ -16,7 +16,8 @@ var page: int = 0
 
 
 func _on_button_main_menu_pressed() -> void:
-	get_tree().change_scene_to_packed(main_menu_scene)
+	if is_inside_tree():
+		get_tree().change_scene_to_packed(main_menu_scene)
 
 
 func _ready() -> void:
@@ -55,10 +56,15 @@ func _on_right_pressed() -> void:
 
 
 func _on_create_lobby_pressed() -> void:
-	get_tree().change_scene_to_packed(lobby_creator_scene)
+	if is_inside_tree():
+		get_tree().change_scene_to_packed(lobby_creator_scene)
 
 
 func _on_resized() -> void:
 	var show_spacers = size.x > 600
 	left_spacer.visible = show_spacers
 	right_spacer.visible = show_spacers
+
+func _input(event):
+	if Input.is_action_just_pressed("ui_cancel"):
+		_on_button_main_menu_pressed()

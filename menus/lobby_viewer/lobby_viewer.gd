@@ -77,16 +77,19 @@ func _peer_messaged(peer: LobbyPeer, chat_message: String):
 	chat_text.text += message
 
 func _disconnected_from_lobby():
-	get_tree().change_scene_to_packed(main_menu_scene)
+	if is_inside_tree():
+		get_tree().change_scene_to_packed(main_menu_scene)
 
 func _lobby_left(_kicked: bool):
-	get_tree().change_scene_to_packed(main_menu_scene)
+	if is_inside_tree():
+		get_tree().change_scene_to_packed(main_menu_scene)
 
 func _lobby_data(data: Dictionary, from_peer: LobbyPeer):
 	match data["command"]:
 		"start_game":
 			if from_peer.id == GlobalLobbyClient.lobby.host:
-				get_tree().change_scene_to_packed(hangman_scene)
+				if is_inside_tree():
+					get_tree().change_scene_to_packed(hangman_scene)
 
 func _on_ready_pressed() -> void:
 	var result :LobbyResult = await GlobalLobbyClient.set_lobby_ready(!GlobalLobbyClient.peer.ready).finished
@@ -125,3 +128,7 @@ func _on_resized() -> void:
 	var show_spacers = size.x > 600
 	left_spacer.visible = show_spacers
 	right_spacer.visible = show_spacers
+
+func _input(event):
+	if Input.is_action_just_pressed("ui_cancel"):
+		_on_button_main_menu_pressed()
