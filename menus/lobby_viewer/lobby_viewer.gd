@@ -44,7 +44,7 @@ func _ready() -> void:
 	GlobalLobbyClient.peer_left.connect(_peer_left)
 	GlobalLobbyClient.lobby_left.connect(_lobby_left)
 	GlobalLobbyClient.lobby_sealed.connect(_lobby_sealed)
-	GlobalLobbyClient.received_data.connect(_lobby_data)
+	GlobalLobbyClient.lobby_notified.connect(_lobby_notified)
 	GlobalLobbyClient.peer_ready.connect(_peer_ready)
 	GlobalLobbyClient.peer_messaged.connect(_peer_messaged)
 	GlobalLobbyClient.disconnected_from_lobby.connect(_disconnected_from_lobby)
@@ -90,7 +90,7 @@ func _lobby_left(_kicked: bool):
 	if is_inside_tree():
 		get_tree().change_scene_to_packed(main_menu_scene)
 
-func _lobby_data(data: Dictionary, from_peer: LobbyPeer):
+func _lobby_notified(data: Dictionary, from_peer: LobbyPeer):
 	match data["command"]:
 		"start_game":
 			if from_peer.id == GlobalLobbyClient.lobby.host:
@@ -119,7 +119,7 @@ func _lobby_sealed(_sealed: bool):
 	update_start_button()
 
 func _on_start_pressed() -> void:
-	var result :LobbyResult = await GlobalLobbyClient.send_lobby_data({"command": "start_game"}).finished
+	var result :LobbyResult = await GlobalLobbyClient.notify_lobby({"command": "start_game"}).finished
 	if result.has_error():
 		logs_label.text = result.error
 

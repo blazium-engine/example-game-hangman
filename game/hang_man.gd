@@ -16,7 +16,7 @@ var main_menu_scene : PackedScene = load("res://main_menu.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	body_parts = [head, body, leftArm, rightArm, leftLeg, rightLeg]
-	GlobalLobbyClient.received_data.connect(_received_data)
+	GlobalLobbyClient.lobby_notified.connect(_lobby_nofitied)
 	GlobalLobbyClient.lobby_left.connect(_lobby_left)
 	GlobalLobbyClient.log_updated.connect(_append_log)
 	# Host sets the word initially
@@ -45,7 +45,7 @@ func set_buttons_enabled(enabled: bool):
 		var node :Button= find_node_by_name(self, "Button" + letter)
 		node.disabled = !enabled
 
-func _received_data(data: Dictionary, from_peer: LobbyPeer):
+func _lobby_nofitied(data: Dictionary, from_peer: LobbyPeer):
 		match data["command"]:
 			"count":
 				# Only host can set word length
@@ -85,7 +85,7 @@ func _received_data(data: Dictionary, from_peer: LobbyPeer):
 					take_damage()
 
 func update_word_on_peers():
-	var result : LobbyResult = await GlobalLobbyClient.send_lobby_data({"command": "update_word", "word": letter_pad.guessed_word}).finished
+	var result : LobbyResult = await GlobalLobbyClient.notify_lobby({"command": "update_word", "word": letter_pad.guessed_word}).finished
 	if result.has_error():
 		logs.text = result.error
 	if letter_pad.guessed_word == letter_pad.word:
@@ -94,7 +94,7 @@ func update_word_on_peers():
 		leave_lobby()
 
 func update_send_damage():
-	var result : LobbyResult = await GlobalLobbyClient.send_lobby_data({"command": "take_damage"}).finished
+	var result : LobbyResult = await GlobalLobbyClient.notify_lobby({"command": "take_damage"}).finished
 	if result.has_error():
 		logs.text = result.error
 
@@ -120,7 +120,7 @@ func _lobby_left(_kicked: bool):
 
 @warning_ignore("integer_division")
 func _on_set_word_pressed() -> void:
-	var result : LobbyResult = await GlobalLobbyClient.send_lobby_data({"command": "count", "count": len(letter_pad.word) / 2}).finished
+	var result : LobbyResult = await GlobalLobbyClient.notify_lobby({"command": "count", "count": len(letter_pad.word) / 2}).finished
 	if result.has_error():
 		logs.text = result.error
 
