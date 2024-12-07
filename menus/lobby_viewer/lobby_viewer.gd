@@ -6,6 +6,7 @@ var container_peer_scene :PackedScene = preload("res://menus/lobby_viewer/contai
 @export var lobby_grid : VBoxContainer
 @export var logs_label :Label
 @export var seal_button: Button
+@export var ready_button: Button
 @export var start_button: Button
 @export var lobby_label: Label
 @export var chat_input: LineEdit
@@ -21,7 +22,12 @@ func _on_button_main_menu_pressed() -> void:
 		logs_label.text = result.error
 
 func update_title():
-	lobby_label.text = GlobalLobbyClient.lobby.lobby_name + " " + str(GlobalLobbyClient.lobby.players) + "/" + str(GlobalLobbyClient.lobby.max_players) + " Sealed: " + str(GlobalLobbyClient.lobby.sealed)
+	lobby_label.text = GlobalLobbyClient.lobby.lobby_name + " " + str(GlobalLobbyClient.lobby.players) + "/" + str(GlobalLobbyClient.lobby.max_players)
+	
+	if GlobalLobbyClient.lobby.sealed:
+		seal_button.text = "Unseal"
+	else:
+		seal_button.text = "Seal"
 
 func is_everyone_ready():
 	for peer in GlobalLobbyClient.peers:
@@ -92,9 +98,15 @@ func _lobby_data(data: Dictionary, from_peer: LobbyPeer):
 					get_tree().change_scene_to_packed(hangman_scene)
 
 func _on_ready_pressed() -> void:
-	var result :LobbyResult = await GlobalLobbyClient.set_lobby_ready(!GlobalLobbyClient.peer.ready).finished
+	var new_ready := !GlobalLobbyClient.peer.ready
+	var result :LobbyResult = await GlobalLobbyClient.set_lobby_ready(new_ready).finished
 	if result.has_error():
 		logs_label.text = result.error
+	else:
+		if new_ready:
+			ready_button.text = "Unready"
+		else:
+			ready_button.text = "Ready"
 
 
 func _on_seal_pressed() -> void:
