@@ -23,7 +23,7 @@ func _on_check_box_toggled(toggled_on: bool) -> void:
 
 
 func _on_button_create_lobby_pressed() -> void:
-	var result : ViewLobbyResult = await GlobalLobbyClient.create_lobby(title_label.text, [], int(max_players_label.text), password_line_edit.text).finished
+	var result : ViewLobbyResult = await GlobalLobbyClient.create_lobby(title_label.text, {}, int(max_players_label.text), password_line_edit.text).finished
 	if result.has_error():
 		logs_label.text = result.error
 	else:
