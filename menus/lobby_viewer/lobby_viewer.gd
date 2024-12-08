@@ -39,12 +39,13 @@ func update_start_button():
 	start_button.disabled = !is_everyone_ready() || !GlobalLobbyClient.lobby.sealed
 
 func _ready() -> void:
+	# Update tags
 	update_start_button()
 	GlobalLobbyClient.peer_joined.connect(_peer_joined)
 	GlobalLobbyClient.peer_left.connect(_peer_left)
 	GlobalLobbyClient.lobby_left.connect(_lobby_left)
 	GlobalLobbyClient.lobby_sealed.connect(_lobby_sealed)
-	GlobalLobbyClient.lobby_notified.connect(_lobby_notified)
+	GlobalLobbyClient.lobby_tagged.connect(_lobby_tagged)
 	GlobalLobbyClient.peer_ready.connect(_peer_ready)
 	GlobalLobbyClient.peer_messaged.connect(_peer_messaged)
 	GlobalLobbyClient.disconnected_from_lobby.connect(_disconnected_from_lobby)
@@ -59,6 +60,7 @@ func _ready() -> void:
 		peer_container.peer = peer
 		peer_container.logs = logs_label
 		lobby_grid.add_child(peer_container)
+	_lobby_tagged.call_deferred(GlobalLobbyClient.lobby.tags)
 
 func _peer_joined(peer: LobbyPeer):
 	var peer_container := container_peer_scene.instantiate()
@@ -90,12 +92,10 @@ func _lobby_left(_kicked: bool):
 	if is_inside_tree():
 		get_tree().change_scene_to_packed(main_menu_scene)
 
-func _lobby_notified(data: Dictionary, from_peer: LobbyPeer):
-	match data["command"]:
-		"start_game":
-			if from_peer.id == GlobalLobbyClient.lobby.host:
-				if is_inside_tree():
-					get_tree().change_scene_to_packed(hangman_scene)
+func _lobby_tagged(tags: Dictionary):
+	if tags.get("game_state", "") == "started":
+		if is_inside_tree():
+			get_tree().change_scene_to_packed(hangman_scene)
 
 func _on_ready_pressed() -> void:
 	var new_ready := !GlobalLobbyClient.peer.ready
@@ -108,7 +108,6 @@ func _on_ready_pressed() -> void:
 		else:
 			ready_button.text = "Ready"
 
-
 func _on_seal_pressed() -> void:
 	var result :LobbyResult = await GlobalLobbyClient.set_lobby_sealed(!GlobalLobbyClient.lobby.sealed).finished
 	if result.has_error():
@@ -119,7 +118,7 @@ func _lobby_sealed(_sealed: bool):
 	update_start_button()
 
 func _on_start_pressed() -> void:
-	var result :LobbyResult = await GlobalLobbyClient.notify_lobby({"command": "start_game"}).finished
+	var result :LobbyResult = await GlobalLobbyClient.set_lobby_tags({"game_state": "started"}).finished
 	if result.has_error():
 		logs_label.text = result.error
 
@@ -141,6 +140,6 @@ func _on_resized() -> void:
 	left_spacer.visible = show_spacers
 	right_spacer.visible = show_spacers
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("ui_cancel"):
 		_on_button_main_menu_pressed()

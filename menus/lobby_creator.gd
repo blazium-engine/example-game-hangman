@@ -28,8 +28,8 @@ func _on_button_create_lobby_pressed() -> void:
 		logs_label.text = result.error
 	else:
 		logs_label.text = ""
-	if is_inside_tree():
-		get_tree().change_scene_to_packed(lobby_viewer_scene)
+		if is_inside_tree():
+			get_tree().change_scene_to_packed(lobby_viewer_scene)
 
 
 func _on_button_increment_pressed() -> void:
@@ -59,6 +59,6 @@ func _on_resized() -> void:
 	left_spacer.visible = show_spacers
 	right_spacer.visible = show_spacers
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("ui_cancel"):
 		_on_button_main_menu_pressed()

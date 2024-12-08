@@ -32,9 +32,9 @@ func _on_button_save_pressed() -> void:
 	save_button.disabled = true
 
 
-func _on_name_text_submitted(new_text: String) -> void:
+func _on_name_text_submitted(_new_text: String) -> void:
 	_on_button_save_pressed()
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("ui_cancel"):
 		_on_button_main_menu_pressed()

@@ -15,6 +15,9 @@ var main_menu_scene : PackedScene = load("res://main_menu.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if GlobalLobbyClient.get_host_data() != null:
+		letter_pad.word = GlobalLobbyClient.get_host_data()["word"]
+		letter_pad.guessed_word = GlobalLobbyClient.get_host_data()["guessed"]
 	body_parts = [head, body, leftArm, rightArm, leftLeg, rightLeg]
 	GlobalLobbyClient.lobby_notified.connect(_lobby_nofitied)
 	GlobalLobbyClient.lobby_left.connect(_lobby_left)
@@ -85,6 +88,8 @@ func _lobby_nofitied(data: Dictionary, from_peer: LobbyPeer):
 					take_damage()
 
 func update_word_on_peers():
+	# Update guessed word for host
+	update_host_data()
 	var result : LobbyResult = await GlobalLobbyClient.notify_lobby({"command": "update_word", "word": letter_pad.guessed_word}).finished
 	if result.has_error():
 		logs.text = result.error
@@ -115,12 +120,19 @@ func leave_lobby():
 
 func _lobby_left(_kicked: bool):
 	if is_inside_tree():
-		await get_tree().create_timer(0.5).timeout
 		get_tree().change_scene_to_packed(main_menu_scene)
+
+func update_host_data():
+	# Set on lobby data the word and the guessed word so far
+	var result : LobbyResult = await GlobalLobbyClient.set_lobby_data({"word": letter_pad.word, "guessed": letter_pad.guessed_word}).finished
+	if result.has_error():
+		logs.text = result.error
 
 @warning_ignore("integer_division")
 func _on_set_word_pressed() -> void:
-	var result : LobbyResult = await GlobalLobbyClient.notify_lobby({"command": "count", "count": len(letter_pad.word) / 2}).finished
+	update_host_data()
+	# Send to clients the word count
+	var result = await GlobalLobbyClient.notify_lobby({"command": "count", "count": len(letter_pad.word) / 2}).finished
 	if result.has_error():
 		logs.text = result.error
 
