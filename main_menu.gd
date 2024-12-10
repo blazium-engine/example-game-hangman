@@ -104,6 +104,6 @@ func create_quit_dialog():
 func _on_quit_button_pressed() -> void:
 	confirm_exit.popup_centered()
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("ui_cancel"):
 		_on_quit_button_pressed()

@@ -9,14 +9,8 @@ var guessed_word := ""
 func _ready() -> void:
 	pass # Replace with function body.
 
-func set_length(length: int):
-	word_label.text = ""
-	for i in length:
-		word_label.text += "_ "
-
 func update_word(p_word: String):
-	word = p_word
-	word_label.text = word
+	word_label.text = p_word
 
 func letterPressed(buttonId: int):
 	var letter := char(buttonId + 65)
@@ -27,6 +21,6 @@ func letterPressed(buttonId: int):
 		word_label.text = word
 	else:
 		# Send the letter to the host
-		var result :LobbyResult = await GlobalLobbyClient.send_lobby_data({"command": "guess", "letter": letter}).finished
+		var result :LobbyResult = await GlobalLobbyClient.notify_lobby({"command": "guess", "letter": letter}).finished
 		if result.has_error():
 			logs.text = result.error
