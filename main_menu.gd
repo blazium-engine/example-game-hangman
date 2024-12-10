@@ -96,7 +96,7 @@ func create_quit_dialog():
 	add_child(confirm_exit)
 	var ok: Button = confirm_exit.get_ok_button()
 	ok.text = "Yes"
-	ok.pressed.connect(func() -> void: get_tree().quit())
+	ok.pressed.connect(func(): get_tree().quit())
 	confirm_exit.get_cancel_button().text = "No"
 	confirm_exit.add_theme_constant_override("buttons_min_width", 100)
 	confirm_exit.add_theme_constant_override("buttons_min_height", 48)
