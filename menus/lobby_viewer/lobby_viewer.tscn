@@ -48,7 +48,7 @@ alignment = 1
 [node name="LabelLobbies" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
-text = "Lobby Code: 1234"
+text = "Lobby Code:"
 horizontal_alignment = 1
 autowrap_mode = 3
 

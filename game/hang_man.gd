@@ -15,14 +15,26 @@ var main_menu_scene : PackedScene = load("res://main_menu.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	body_parts = [head, body, leftArm, rightArm, leftLeg, rightLeg]
-	GlobalLobbyClient.received_data.connect(_received_data)
-	GlobalLobbyClient.lobby_left.connect(_lobby_left)
-	GlobalLobbyClient.log_updated.connect(_append_log)
 	# Host sets the word initially
 	if !GlobalLobbyClient.is_host():
 		set_buttons_enabled(false)
 		set_word_button.visible = false
+	body_parts = [head, body, leftArm, rightArm, leftLeg, rightLeg]
+	if GlobalLobbyClient.is_host():
+		letter_pad.word = GlobalLobbyClient.get_host_data().get("word", "")
+		letter_pad.guessed_word = GlobalLobbyClient.get_host_data().get("guessed", "")
+	var word = GlobalLobbyClient.lobby.data.get("guessed", "")
+	var health = GlobalLobbyClient.lobby.data.get("health", 6)
+	# Start guessing if word is set
+	_start_guessing(word)
+	# Take damage if needed
+	while health != len(body_parts):
+		take_damage()
+	GlobalLobbyClient.lobby_notified.connect(_lobby_nofitied)
+	GlobalLobbyClient.lobby_left.connect(_lobby_left)
+	GlobalLobbyClient.log_updated.connect(_append_log)
+	GlobalLobbyClient.received_lobby_data.connect(_received_lobby_data)
+	GlobalLobbyClient.disconnected_from_lobby.connect(_disconnected_from_lobby)
 
 func find_node_by_name(parent: Node, p_name: String) -> Node:
 	# Check if the current parent node matches the name
@@ -45,22 +57,30 @@ func set_buttons_enabled(enabled: bool):
 		var node :Button= find_node_by_name(self, "Button" + letter)
 		node.disabled = !enabled
 
-func _received_data(data: Dictionary, from_peer: LobbyPeer):
+func _received_lobby_data(data: Dictionary, is_private: bool):
+	if !is_private:
+		_start_guessing(data.get("guessed", ""))
+		# Take damage if needed
+		while data.get("health", 6) != len(body_parts):
+			take_damage()
+	
+func _start_guessing(word):
+	print(word)
+	if word == "":
+		return
+	# Disable host input until peers guess the word
+	if GlobalLobbyClient.is_host():
+		set_buttons_enabled(false)
+		set_word_button.disabled = true
+		return
+	set_buttons_enabled(true)
+	letter_pad.update_word(word)
+
+func _lobby_nofitied(data: Dictionary, from_peer: LobbyPeer):
 		match data["command"]:
-			"count":
-				# Only host can set word length
-				if from_peer.id == GlobalLobbyClient.lobby.host:
-					# Disable host input until peers guess the word
-					if GlobalLobbyClient.is_host():
-						set_buttons_enabled(false)
-						set_word_button.disabled = true
-						return
-					set_buttons_enabled(true)
-					var count = data["count"]
-					letter_pad.set_length(count)
 			"guess":
 				var guess = data["letter"]
-				# Only peers can guess, this only calls on the host
+				# Only peers can guess, this only calls to the host
 				var guessed = false
 				if from_peer.id != GlobalLobbyClient.lobby.host:
 					for i in len(letter_pad.word):
@@ -71,32 +91,17 @@ func _received_data(data: Dictionary, from_peer: LobbyPeer):
 					update_word_on_peers()
 				else:
 					update_send_damage()
-			"update_word":
-				# Only host can update word
-				if from_peer.id == GlobalLobbyClient.lobby.host:
-					var update_word = data["word"]
-					# Host doesnt update his word
-					if GlobalLobbyClient.is_host():
-						return
-					letter_pad.update_word(update_word)
-			"take_damage":
-				# Only host can damage players
-				if from_peer.id == GlobalLobbyClient.lobby.host:
-					take_damage()
 
 func update_word_on_peers():
-	var result : LobbyResult = await GlobalLobbyClient.send_lobby_data({"command": "update_word", "word": letter_pad.guessed_word}).finished
-	if result.has_error():
-		logs.text = result.error
+	# Update guessed word for host
+	update_host_data()
 	if letter_pad.guessed_word == letter_pad.word:
 		if is_inside_tree():
 			await get_tree().create_timer(0.5).timeout
 		leave_lobby()
 
 func update_send_damage():
-	var result : LobbyResult = await GlobalLobbyClient.send_lobby_data({"command": "take_damage"}).finished
-	if result.has_error():
-		logs.text = result.error
+	update_host_data(1)
 
 func take_damage():
 	var body_part :ColorRect= body_parts.pop_back()
@@ -115,17 +120,27 @@ func leave_lobby():
 
 func _lobby_left(_kicked: bool):
 	if is_inside_tree():
-		await get_tree().create_timer(0.5).timeout
 		get_tree().change_scene_to_packed(main_menu_scene)
+
+func update_host_data(damage:= 0):
+	# Set on lobby data the word and the guessed word so far
+	var result : LobbyResult = await GlobalLobbyClient.set_lobby_data({"word": letter_pad.word}, true).finished
+	if result.has_error():
+		logs.text = result.error
+	result = await GlobalLobbyClient.set_lobby_data({"guessed": letter_pad.guessed_word, "health": len(body_parts) - damage}).finished
+	if result.has_error():
+		logs.text = result.error
 
 @warning_ignore("integer_division")
 func _on_set_word_pressed() -> void:
-	var result : LobbyResult = await GlobalLobbyClient.send_lobby_data({"command": "count", "count": len(letter_pad.word) / 2}).finished
-	if result.has_error():
-		logs.text = result.error
+	update_host_data()
 
 func _append_log(command: String, message: String):
 	logs.text = command + " " + message
 
 func _on_leave_pressed() -> void:
 	leave_lobby()
+
+func _disconnected_from_lobby(_reason: String):
+	if is_inside_tree():
+		get_tree().change_scene_to_packed(main_menu_scene)

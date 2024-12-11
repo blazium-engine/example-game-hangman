@@ -5,7 +5,6 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_u6qai"]
 font_size = 40
-font_color = Color(0, 0, 0, 1)
 
 [node name="HangMan" type="ColorRect" node_paths=PackedStringArray("head", "body", "leftArm", "rightArm", "leftLeg", "rightLeg", "set_word_button", "letter_pad", "logs")]
 anchors_preset = 15
@@ -13,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.0901961, 0.101961, 0.14902, 1)
 script = ExtResource("1_kupf2")
 head = NodePath("Left/Control/Head")
 body = NodePath("Left/Control/Body")
@@ -296,7 +296,6 @@ text = "Set Word"
 
 [node name="Logs" type="Label" parent="Right/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Logs:"
 
 [node name="Leave" type="Button" parent="Right/VBoxContainer"]

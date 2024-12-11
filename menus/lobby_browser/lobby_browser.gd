@@ -22,6 +22,7 @@ func _on_button_main_menu_pressed() -> void:
 
 func _ready() -> void:
 	load_lobbies()
+	GlobalLobbyClient.disconnected_from_lobby.connect(_disconnected_from_lobby)
 
 
 func load_lobbies() -> void:
@@ -65,6 +66,10 @@ func _on_resized() -> void:
 	left_spacer.visible = show_spacers
 	right_spacer.visible = show_spacers
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("ui_cancel"):
 		_on_button_main_menu_pressed()
+
+func _disconnected_from_lobby(_reason: String):
+	if is_inside_tree():
+		get_tree().change_scene_to_packed(main_menu_scene)

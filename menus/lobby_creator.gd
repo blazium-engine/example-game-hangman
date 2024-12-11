@@ -10,6 +10,8 @@ var lobby_viewer_scene: PackedScene = load("res://menus/lobby_viewer/lobby_viewe
 @export var left_spacer: Control
 @export var right_spacer: Control
 
+func _ready() -> void:
+	GlobalLobbyClient.disconnected_from_lobby.connect(_disconnected_from_lobby)
 
 func _on_button_main_menu_pressed() -> void:
 	if is_inside_tree():
@@ -28,8 +30,8 @@ func _on_button_create_lobby_pressed() -> void:
 		logs_label.text = result.error
 	else:
 		logs_label.text = ""
-	if is_inside_tree():
-		get_tree().change_scene_to_packed(lobby_viewer_scene)
+		if is_inside_tree():
+			get_tree().change_scene_to_packed(lobby_viewer_scene)
 
 
 func _on_button_increment_pressed() -> void:
@@ -59,6 +61,10 @@ func _on_resized() -> void:
 	left_spacer.visible = show_spacers
 	right_spacer.visible = show_spacers
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("ui_cancel"):
 		_on_button_main_menu_pressed()
+
+func _disconnected_from_lobby(_reason: String):
+	if is_inside_tree():
+		get_tree().change_scene_to_packed(main_menu_scene)
