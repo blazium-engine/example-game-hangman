@@ -141,6 +141,6 @@ func _append_log(command: String, message: String):
 func _on_leave_pressed() -> void:
 	leave_lobby()
 
-func _disconnected_from_lobby(reason: String):
+func _disconnected_from_lobby(_reason: String):
 	if is_inside_tree():
 		get_tree().change_scene_to_packed(main_menu_scene)

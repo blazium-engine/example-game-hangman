@@ -65,6 +65,6 @@ func _input(_event):
 	if Input.is_action_just_pressed("ui_cancel"):
 		_on_button_main_menu_pressed()
 
-func _disconnected_from_lobby(reason: String):
+func _disconnected_from_lobby(_reason: String):
 	if is_inside_tree():
 		get_tree().change_scene_to_packed(main_menu_scene)

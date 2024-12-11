@@ -84,7 +84,7 @@ func _peer_messaged(peer: LobbyPeer, chat_message: String):
 	var message :String=  "[b]" + peer.peer_name + "[/b]: " + chat_message + "\n"
 	chat_text.text += message
 
-func _disconnected_from_lobby(reason: String):
+func _disconnected_from_lobby(_reason: String):
 	if is_inside_tree():
 		get_tree().change_scene_to_packed(main_menu_scene)
 
