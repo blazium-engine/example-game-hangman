@@ -21,8 +21,7 @@ func _ready() -> void:
 		set_word_button.visible = false
 	body_parts = [head, body, leftArm, rightArm, leftLeg, rightLeg]
 	if GlobalLobbyClient.is_host():
-		letter_pad.word = GlobalLobbyClient.get_host_data().get("word", "")
-		letter_pad.guessed_word = GlobalLobbyClient.get_host_data().get("guessed", "")
+		letter_pad.word = GlobalLobbyClient.host_data.get("word", "")
 	var word = GlobalLobbyClient.lobby.data.get("guessed", "")
 	var health = GlobalLobbyClient.lobby.data.get("health", 6)
 	# Start guessing if word is set
@@ -65,13 +64,13 @@ func _received_lobby_data(data: Dictionary, is_private: bool):
 			take_damage()
 	
 func _start_guessing(word):
-	print(word)
 	if word == "":
 		return
 	# Disable host input until peers guess the word
 	if GlobalLobbyClient.is_host():
 		set_buttons_enabled(false)
 		set_word_button.disabled = true
+		letter_pad.update_word(letter_pad.word)
 		return
 	set_buttons_enabled(true)
 	letter_pad.update_word(word)
