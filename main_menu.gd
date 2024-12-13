@@ -89,10 +89,12 @@ func _on_button_settings_pressed() -> void:
 	if is_inside_tree():
 		get_tree().change_scene_to_packed(settings_scene)
 
+
 func create_quit_dialog():
 	confirm_exit = ConfirmationDialog.new()
+	confirm_exit.dialog_text = "Are you sure you want to exit?"
 	confirm_exit.hide()
-	confirm_exit.min_size = Vector2(320, 240)
+	confirm_exit.min_size = Vector2(240, 128)
 	add_child(confirm_exit)
 	var ok: Button = confirm_exit.get_ok_button()
 	ok.text = "Yes"
@@ -101,8 +103,10 @@ func create_quit_dialog():
 	confirm_exit.add_theme_constant_override("buttons_min_width", 100)
 	confirm_exit.add_theme_constant_override("buttons_min_height", 48)
 
+
 func _on_quit_button_pressed() -> void:
 	confirm_exit.popup_centered()
+
 
 func _input(_event):
 	if Input.is_action_just_pressed("ui_cancel"):
