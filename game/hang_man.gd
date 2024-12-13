@@ -161,7 +161,6 @@ func update_host_data(damage:= 0):
 		logs.text = result.error
 
 
-@warning_ignore("integer_division")
 func _on_set_word_pressed() -> void:
 	update_host_data()
 

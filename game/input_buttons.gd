@@ -26,7 +26,7 @@ signal delete_pressed()
 func _get_minimum_size() -> Vector2:
 	return Vector2(button_size.x * 7, button_size.y * 4) + Vector2(h_margin * 6, v_margin * 3)
 
-
+@warning_ignore("integer_division")
 func _sort_children() -> void:
 	var _child_count = get_child_count() - 1
 	for i in _child_count:
@@ -38,10 +38,11 @@ func _sort_children() -> void:
 func _init() -> void:
 	var abc: String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	for i in abc.length():
-		var button: Button = Button.new()
-		button.text = abc[i]
-		button.pressed.connect(_on_letter_pressed.bind(i))
-		add_child(button)
+		var letter_button: Button = Button.new()
+		letter_button.name = "Button"+ abc[i]
+		letter_button.text = abc[i]
+		letter_button.pressed.connect(_on_letter_pressed.bind(i))
+		add_child(letter_button)
 	var button: Button = Button.new()
 	button.text = "Del"
 	button.set_deferred("size_flags_horizontal", Control.SIZE_EXPAND_FILL)

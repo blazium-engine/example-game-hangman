@@ -41,6 +41,7 @@ func _input(_event):
 		_on_button_main_menu_pressed()
 
 func _disconnected_from_lobby(_reason: String):
+	await get_tree().create_timer(1).timeout
 	if is_inside_tree():
 		get_tree().change_scene_to_packed(main_menu_scene)
 
