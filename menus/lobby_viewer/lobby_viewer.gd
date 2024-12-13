@@ -36,11 +36,12 @@ func is_everyone_ready():
 	return true
 
 func update_start_button():
-	start_button.disabled = !is_everyone_ready() || !GlobalLobbyClient.lobby.sealed
+	start_button.disabled = !is_everyone_ready()
 
 func _ready() -> void:
 	# Update tags
 	update_start_button()
+	update_ready_button(GlobalLobbyClient.peer.ready)
 	GlobalLobbyClient.peer_joined.connect(_peer_joined)
 	GlobalLobbyClient.peer_left.connect(_peer_left)
 	GlobalLobbyClient.lobby_left.connect(_lobby_left)
@@ -93,9 +94,15 @@ func _lobby_left(_kicked: bool):
 		get_tree().change_scene_to_packed(main_menu_scene)
 
 func _lobby_tagged(tags: Dictionary):
-	if tags.get("game_state", "") == "started":
+	if tags.get("game_state", "stopped") == "started":
 		if is_inside_tree():
 			get_tree().change_scene_to_packed(hangman_scene)
+
+func update_ready_button(is_ready: bool):
+	if is_ready:
+		ready_button.text = "Unready"
+	else:
+		ready_button.text = "Ready"
 
 func _on_ready_pressed() -> void:
 	var new_ready := !GlobalLobbyClient.peer.ready
@@ -103,10 +110,7 @@ func _on_ready_pressed() -> void:
 	if result.has_error():
 		logs_label.text = result.error
 	else:
-		if new_ready:
-			ready_button.text = "Unready"
-		else:
-			ready_button.text = "Ready"
+		update_ready_button(new_ready)
 
 func _on_seal_pressed() -> void:
 	var result :LobbyResult = await GlobalLobbyClient.set_lobby_sealed(!GlobalLobbyClient.lobby.sealed).finished
@@ -118,7 +122,7 @@ func _lobby_sealed(_sealed: bool):
 	update_start_button()
 
 func _on_start_pressed() -> void:
-	var result :LobbyResult = await GlobalLobbyClient.set_lobby_tags({"game_state": "started"}).finished
+	var result :LobbyResult = await GlobalLobbyClient.add_lobby_tags({"game_state": "started"}).finished
 	if result.has_error():
 		logs_label.text = result.error
 
