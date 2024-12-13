@@ -70,6 +70,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Chat:"
+max_length = 256
 script = ExtResource("3_t45qh")
 
 [node name="ChatButton" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainerChat"]

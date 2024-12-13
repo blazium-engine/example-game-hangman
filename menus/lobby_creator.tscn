@@ -69,6 +69,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Lobby title (required)"
 alignment = 1
+max_length = 16
 script = ExtResource("3_j2gh6")
 
 [node name="HBoxContainerPrivacy" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
@@ -89,6 +90,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Password"
 alignment = 1
+max_length = 16
 editable = false
 
 [node name="HBoxContainerPlayers" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]

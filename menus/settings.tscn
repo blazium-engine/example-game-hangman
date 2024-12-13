@@ -14,7 +14,7 @@ theme_type_variation = &"BgPanel"
 script = ExtResource("1_qnsfk")
 logs_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/Logs")
 name_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2/Name")
-save_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonCreateLobby")
+save_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonSave")
 left_spacer = NodePath("HBoxContainer/LeftSpacer")
 right_spacer = NodePath("HBoxContainer/RightSpacer")
 
@@ -67,6 +67,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Name (required)"
 alignment = 1
+max_length = 16
 script = ExtResource("3_l2p4s")
 
 [node name="Logs" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
@@ -77,7 +78,11 @@ horizontal_alignment = 1
 layout_mode = 2
 alignment = 1
 
-[node name="ButtonCreateLobby" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
+[node name="ButtonDisconnect" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Disconnect"
+
+[node name="ButtonSave" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 disabled = true
 text = "Save"
@@ -94,5 +99,6 @@ size_flags_horizontal = 3
 [connection signal="resized" from="." to="." method="_on_resized"]
 [connection signal="text_changed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2/Name" to="." method="_on_name_text_changed"]
 [connection signal="text_submitted" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2/Name" to="." method="_on_name_text_submitted"]
-[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonCreateLobby" to="." method="_on_button_save_pressed"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonDisconnect" to="." method="_on_button_disconnect_pressed"]
+[connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonSave" to="." method="_on_button_save_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]

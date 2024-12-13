@@ -43,3 +43,8 @@ func _input(_event):
 func _disconnected_from_lobby(_reason: String):
 	if is_inside_tree():
 		get_tree().change_scene_to_packed(main_menu_scene)
+
+
+func _on_button_disconnect_pressed() -> void:
+	GlobalLobbyClient.reconnection_token = ""
+	GlobalLobbyClient.disconnect_from_lobby()

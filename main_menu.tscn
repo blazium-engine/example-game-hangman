@@ -69,6 +69,7 @@ layout_mode = 2
 layout_mode = 2
 placeholder_text = "Name (required)"
 alignment = 1
+max_length = 16
 script = ExtResource("3_rsdx6")
 
 [node name="SetName" type="Button" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainerName"]
