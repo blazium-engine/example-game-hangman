@@ -33,5 +33,5 @@ func _disconnected_from_lobby(reason: String):
 		return
 	reconnects += 1
 	if is_inside_tree():
-		await get_tree().create_timer(2 * reconnects).timeout
+		await get_tree().create_timer(0.2 * reconnects).timeout
 	connect_to_lobby()

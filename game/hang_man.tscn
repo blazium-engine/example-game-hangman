@@ -12,7 +12,7 @@ spacing_glyph = 3
 font = SubResource("FontVariation_3o440")
 font_size = 40
 
-[node name="HangMan" type="PanelContainer" node_paths=PackedStringArray("head", "body", "leftArm", "rightArm", "leftLeg", "rightLeg", "set_word_button", "letter_pad", "logs")]
+[node name="HangMan" type="PanelContainer" node_paths=PackedStringArray("head", "body", "leftArm", "rightArm", "leftLeg", "rightLeg", "set_word_button", "letter_pad", "logs", "inputButtons")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -29,6 +29,7 @@ rightLeg = NodePath("HBoxContainer/Control/LegRight")
 set_word_button = NodePath("HBoxContainer/VBoxContainer/SetWord")
 letter_pad = NodePath("HBoxContainer/VBoxContainer")
 logs = NodePath("HBoxContainer/VBoxContainer/Logs")
+inputButtons = NodePath("HBoxContainer/VBoxContainer/InputButtons")
 
 [node name="Blazium" parent="." instance=ExtResource("2_d3p2f")]
 layout_mode = 2
