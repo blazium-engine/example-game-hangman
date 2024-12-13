@@ -1,4 +1,4 @@
-extends Node
+extends PanelContainer
 
 @export var head: ColorRect
 @export var body: ColorRect
@@ -9,12 +9,13 @@ extends Node
 @export var set_word_button: Button
 @export var letter_pad: LetterPad
 @export var logs: Label
-var body_parts : Array[ColorRect]
+@export var inputButtons: Container
+var body_parts: Array[ColorRect]
 
 var main_menu_scene : PackedScene = load("res://main_menu.tscn")
 var lobby_viewer : PackedScene = load("res://menus/lobby_viewer/lobby_viewer.tscn")
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	# Host sets the word initially
 	if !GlobalLobbyClient.is_host():
@@ -38,26 +39,25 @@ func _ready() -> void:
 	GlobalLobbyClient.disconnected_from_lobby.connect(_disconnected_from_lobby)
 	GlobalLobbyClient.lobby_tagged.connect(_lobby_tagged)
 
+
 func find_node_by_name(parent: Node, p_name: String) -> Node:
 	# Check if the current parent node matches the name
 	if parent.name == p_name:
 		return parent
-
 	# Iterate through all children of the current parent node
 	for child in parent.get_children():
 		# Recursively search in each child
 		var found_node = find_node_by_name(child, p_name)
 		if found_node:
 			return found_node
-
 	# If not found, return null
 	return null
 
+
 func set_buttons_enabled(enabled: bool):
-	for i in 26:
-		var letter = char(i + 65)
-		var node :Button= find_node_by_name(self, "Button" + letter)
+	for node: Button in inputButtons.get_children():
 		node.disabled = !enabled
+
 
 func _received_lobby_data(data: Dictionary, is_private: bool):
 	if !is_private:
@@ -84,6 +84,7 @@ func _start_guessing(word):
 	set_buttons_enabled(true)
 	letter_pad.update_word(word)
 
+
 func _lobby_nofitied(data: Dictionary, from_peer: LobbyPeer):
 		match data["command"]:
 			"guess":
@@ -107,6 +108,7 @@ func _lobby_nofitied(data: Dictionary, from_peer: LobbyPeer):
 				else:
 					update_send_damage()
 
+
 func update_word_on_peers():
 	# Update guessed word for host
 	update_host_data()
@@ -114,6 +116,7 @@ func update_word_on_peers():
 		if is_inside_tree():
 			await get_tree().create_timer(0.5).timeout
 		end_game()
+
 
 func update_send_damage():
 	update_host_data(1)
@@ -142,9 +145,11 @@ func take_damage():
 			await get_tree().create_timer(0.5).timeout
 		end_game()
 
+
 func _lobby_left(_kicked: bool):
 	if is_inside_tree():
 		get_tree().change_scene_to_packed(main_menu_scene)
+
 
 func update_host_data(damage:= 0):
 	# Set on lobby data the word and the guessed word so far
@@ -155,9 +160,11 @@ func update_host_data(damage:= 0):
 	if result.has_error():
 		logs.text = result.error
 
+
 @warning_ignore("integer_division")
 func _on_set_word_pressed() -> void:
 	update_host_data()
+
 
 func _append_log(command: String, message: String):
 	logs.text = command + " " + message
@@ -179,6 +186,7 @@ func leave_lobby():
 
 func _on_leave_pressed() -> void:
 	leave_lobby()
+
 
 func _disconnected_from_lobby(_reason: String):
 	if is_inside_tree():
