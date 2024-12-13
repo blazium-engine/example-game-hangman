@@ -139,7 +139,7 @@ logs = NodePath("Logs")
 
 [node name="Label" type="Label" parent="Right/VBoxContainer"]
 layout_mode = 2
-text = "_ _ _ _ _ _ _ _"
+text = "HOST TURN"
 label_settings = SubResource("LabelSettings_u6qai")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -268,6 +268,7 @@ alignment = 1
 [node name="ButtonV" type="Button" parent="Right/VBoxContainer/HBoxContainer4"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+theme_type_variation = &"FlatButton"
 text = "V"
 
 [node name="ButtonW" type="Button" parent="Right/VBoxContainer/HBoxContainer4"]
