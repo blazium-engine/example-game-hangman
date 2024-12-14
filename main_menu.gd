@@ -18,7 +18,6 @@ var settings_scene : PackedScene = load("res://menus/settings.tscn")
 var confirm_exit: ConfirmationDialog
 
 func _ready() -> void:
-	get_tree().get_root().set_min_size(Vector2i(1280, 720));
 	GlobalLobbyClient.log_updated.connect(_log_updated)
 	_connected_to_lobby(GlobalLobbyClient.peer, "")
 	GlobalLobbyClient.connected_to_lobby.connect(_connected_to_lobby)
