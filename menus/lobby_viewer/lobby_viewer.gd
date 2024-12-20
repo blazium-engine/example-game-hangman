@@ -82,7 +82,7 @@ func _peer_ready(_peer: LobbyPeer, _p_ready: bool):
 	update_start_button()
 
 func _peer_messaged(peer: LobbyPeer, chat_message: String):
-	var message :String=  "[b]" + peer.peer_name + "[/b]: " + chat_message + "\n"
+	var message :String=  "[b]" + peer.user_data.get("name", "") + "[/b]: " + chat_message + "\n"
 	chat_text.text += message
 
 func _disconnected_from_lobby(_reason: String):
