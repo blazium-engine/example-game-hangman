@@ -58,7 +58,7 @@ func _on_button_lobby_pressed() -> void:
 
 
 func _on_set_name_pressed() -> void:
-	var result :LobbyResult= await GlobalLobbyClient.set_peer_name({"name": peer_name_line_edit.text}).finished
+	var result :LobbyResult= await GlobalLobbyClient.add_peer_user_data({"name": peer_name_line_edit.text}).finished
 	if result.has_error():
 		logs.text = result.error
 	else:
