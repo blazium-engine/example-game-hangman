@@ -8,7 +8,7 @@ var main_menu_scene: PackedScene = load("res://main_menu.tscn")
 @export var right_spacer: Control
 
 func _ready() -> void:
-	name_label.text = GlobalLobbyClient.peer.peer_name
+	name_label.text = GlobalLobbyClient.peer.user_data.get("name", "")
 	GlobalLobbyClient.disconnected_from_lobby.connect(_disconnected_from_lobby)
 
 func _on_button_main_menu_pressed() -> void:
@@ -22,11 +22,11 @@ func _on_resized() -> void:
 
 
 func _on_name_text_changed(new_text: String) -> void:
-	save_button.disabled = new_text == GlobalLobbyClient.peer.peer_name || new_text == ""
+	save_button.disabled = new_text == GlobalLobbyClient.peer.user_data.get("name", "") || new_text == ""
 
 
 func _on_button_save_pressed() -> void:
-	var result :LobbyResult= await GlobalLobbyClient.set_peer_name(name_label.text).finished
+	var result :LobbyResult= await GlobalLobbyClient.add_peer_user_data({"name": name_label.text}).finished
 	if result.has_error():
 		logs_label.text = result.error
 		

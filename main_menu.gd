@@ -26,15 +26,15 @@ func _ready() -> void:
 		create_quit_dialog()
 
 func _connected_to_lobby(peer: LobbyPeer, _reconnection_token: String):
-	name_label.visible = peer.peer_name != ""
-	name_label.text = "Hello, " + peer.peer_name
-	peer_name_line_edit.text = peer.peer_name
-	menu.visible = peer.peer_name != ""
-	set_name_menu.visible = peer.peer_name == ""
-	if peer.peer_name != "":
+	name_label.visible = peer.user_data.get("name", "") != ""
+	name_label.text = "Hello, " + peer.user_data.get("name", "")
+	peer_name_line_edit.text = peer.user_data.get("name", "")
+	menu.visible = peer.user_data.get("name", "") != ""
+	set_name_menu.visible = peer.user_data.get("name", "") == ""
+	if peer.user_data.get("name", "") != "":
 		logs.text = ""
 
-	if peer.peer_name != "":
+	if peer.user_data.get("name", "") != "":
 		menu.visible = true
 		set_name_menu.visible = false
 		multiplayer_button.grab_focus()
@@ -58,7 +58,7 @@ func _on_button_lobby_pressed() -> void:
 
 
 func _on_set_name_pressed() -> void:
-	var result :LobbyResult= await GlobalLobbyClient.set_peer_name(peer_name_line_edit.text).finished
+	var result :LobbyResult= await GlobalLobbyClient.set_peer_name({"name": peer_name_line_edit.text}).finished
 	if result.has_error():
 		logs.text = result.error
 	else:

@@ -9,7 +9,7 @@ extends Control
 
 func _ready():
 	GlobalLobbyClient.peer_ready.connect(_on_peer_ready)
-	_peer_name.text = peer.peer_name
+	_peer_name.text = peer.user_data.get("name", "")
 	_peer_ready.text = "Ready: " + str(peer.ready)
 	# If not host, hide kick button
 	if GlobalLobbyClient.lobby.host != GlobalLobbyClient.peer.id:

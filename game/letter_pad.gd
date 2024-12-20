@@ -29,7 +29,7 @@ func letterPressed(buttonId: int):
 
 func _on_delete_pressed() -> void:
 	for peer in GlobalLobbyClient.peers:
-		print(peer.peer_name)
+		print(peer.user_data.get("name", ""))
 	if GlobalLobbyClient.is_host() && word_label.text.length() > 0:
 		word = word.left(-1)
 		guessed_word = guessed_word.left(-1)
