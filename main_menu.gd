@@ -34,7 +34,8 @@ func _connected_to_lobby(peer: LobbyPeer, _reconnection_token: String):
 	if peer.user_data.get("name", "") != "":
 		logs.text = ""
 
-	if peer.user_data.get("name", "") != "":
+	# Don't show name menu on android and ios
+	if peer.user_data.get("name", "") != "" or OS.has_feature("web_android") or OS.has_feature("web_ios") or OS.has_feature("android") or OS.has_feature("ios"):
 		menu.visible = true
 		set_name_menu.visible = false
 		multiplayer_button.grab_focus()
