@@ -9,6 +9,7 @@ var lobby_viewer_scene: PackedScene = load("res://menus/lobby_viewer/lobby_viewe
 @export var create_button: Button
 @export var left_spacer: Control
 @export var right_spacer: Control
+var sealed: bool = false
 
 func _ready() -> void:
 	GlobalLobbyClient.disconnected_from_lobby.connect(_disconnected_from_lobby)
@@ -25,7 +26,7 @@ func _on_check_box_toggled(toggled_on: bool) -> void:
 
 
 func _on_button_create_lobby_pressed() -> void:
-	var result : ViewLobbyResult = await GlobalLobbyClient.create_lobby(title_label.text, {}, int(max_players_label.text), password_line_edit.text).finished
+	var result : ViewLobbyResult = await GlobalLobbyClient.create_lobby(title_label.text, sealed, {}, int(max_players_label.text), password_line_edit.text).finished
 	if result.has_error():
 		logs_label.text = result.error
 	else:
@@ -68,3 +69,7 @@ func _input(_event):
 func _disconnected_from_lobby(_reason: String):
 	if is_inside_tree():
 		get_tree().change_scene_to_packed(main_menu_scene)
+
+
+func _on_sealed_toggled(toggled_on: bool) -> void:
+	sealed = toggled_on

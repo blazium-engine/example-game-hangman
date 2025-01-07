@@ -93,6 +93,19 @@ alignment = 1
 max_length = 16
 editable = false
 
+[node name="HBoxContainerPrivacy3" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy3"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Sealed:"
+
+[node name="Sealed" type="CheckButton" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy3"]
+layout_mode = 2
+flat = true
+
 [node name="HBoxContainerPlayers" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
@@ -145,6 +158,7 @@ size_flags_horizontal = 3
 [connection signal="text_changed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2/Title" to="." method="_on_title_text_changed"]
 [connection signal="text_submitted" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy2/Title" to="." method="_on_title_text_submitted"]
 [connection signal="toggled" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="toggled" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPrivacy3/Sealed" to="." method="_on_sealed_toggled"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/ButtonDecrement" to="." method="_on_button_decrement_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer/HBoxContainerPlayers/ButtonIncrement" to="." method="_on_button_increment_pressed"]
 [connection signal="pressed" from="HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/ButtonCreateLobby" to="." method="_on_button_create_lobby_pressed"]
