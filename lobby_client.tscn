@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://lobby_client.gd" id="1_rnl5w"]
 
-[sub_resource type="LobbyInfo" id="LobbyInfo_hrn78"]
+[sub_resource type="LobbyInfo" id="LobbyInfo_ivphx"]
 
-[sub_resource type="LobbyPeer" id="LobbyPeer_xea1d"]
+[sub_resource type="LobbyPeer" id="LobbyPeer_bnb33"]
 
 [node name="LobbyClient" type="LobbyClient"]
 game_id = "hangman"
-lobby = SubResource("LobbyInfo_hrn78")
-peer = SubResource("LobbyPeer_xea1d")
+lobby = SubResource("LobbyInfo_ivphx")
+peer = SubResource("LobbyPeer_bnb33")
 script = ExtResource("1_rnl5w")
