@@ -1,8 +1,8 @@
 extends PanelContainer
 
-var lobby_browser_scene : PackedScene = load("res://menus/lobby_browser/lobby_browser.tscn")
-var lobby_creator_scene : PackedScene = load("res://menus/lobby_creator.tscn")
-var settings_scene : PackedScene = load("res://menus/settings.tscn")
+var lobby_browser_scene : PackedScene = preload("res://menus/lobby_browser/lobby_browser.tscn")
+var lobby_creator_scene : PackedScene = preload("res://menus/lobby_creator.tscn")
+var settings_scene : PackedScene = preload("res://menus/settings.tscn")
 
 @export var peer_name_line_edit : LineEdit
 @export var name_label: Label
