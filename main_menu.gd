@@ -26,22 +26,26 @@ func _ready() -> void:
 		create_quit_dialog()
 
 func _connected_to_lobby(peer: LobbyPeer, _reconnection_token: String):
-	name_label.visible = peer.user_data.get("name", "") != ""
-	name_label.text = "Hello, " + peer.user_data.get("name", "")
-	peer_name_line_edit.text = peer.user_data.get("name", "")
-	menu.visible = peer.user_data.get("name", "") != ""
-	set_name_menu.visible = peer.user_data.get("name", "") == ""
-	if peer.user_data.get("name", "") != "":
-		logs.text = ""
+	var peer_name: String = peer.user_data.get("name", "")
+	
+	# If no name
+	if peer_name == "":
+		menu.visible = false
+		set_name_menu.visible = true
+	else: # has name already
+		menu.visible = true
+		name_label.visible = true
+		name_label.text = "Hello, " + peer_name
+		peer_name_line_edit.text = peer_name
+		set_name_menu.visible = false
+		multiplayer_button.grab_focus()
 
 	# Don't show name menu on android and ios
-	if peer.user_data.get("name", "") != "" or OS.has_feature("web_android") or OS.has_feature("web_ios") or OS.has_feature("android") or OS.has_feature("ios"):
+	if (OS.has_feature("web_android") or OS.has_feature("web_ios") or OS.has_feature("android") or OS.has_feature("ios")):
 		menu.visible = true
 		set_name_menu.visible = false
 		multiplayer_button.grab_focus()
-	else:
-		menu.visible = false
-		set_name_menu.visible = true
+		
 	logs.text = ""
 
 func _log_updated(command: String, logs_text: String):
