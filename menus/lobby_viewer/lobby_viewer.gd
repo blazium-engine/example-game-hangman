@@ -1,8 +1,12 @@
 extends PanelContainer
 
 var main_menu_scene : PackedScene = load("res://main_menu.tscn")
-var hangman_scene : PackedScene = load("res://game/hang_man.tscn")
 var container_peer_scene :PackedScene = preload("res://menus/lobby_viewer/container_peer.tscn")
+
+## Replace this scene to change the game, but keep the whole lobby service system.
+## After all, on start, Blazium Services are no longer used
+## because the server/host moves to the player host.
+@export var hangman_scene : PackedScene
 @export var lobby_grid : VBoxContainer
 @export var logs_label :Label
 @export var seal_button: Button
@@ -93,6 +97,9 @@ func _lobby_left(_kicked: bool):
 	if is_inside_tree():
 		get_tree().change_scene_to_packed(main_menu_scene)
 
+## Once the host presses start, a message is sent to Blazium Services
+## to add tags to the lobby via the `lobby_tagged` signal
+## This signal is received by all players.
 func _lobby_tagged(tags: Dictionary):
 	if tags.get("game_state", "stopped") == "started":
 		if is_inside_tree():
@@ -122,6 +129,7 @@ func _lobby_sealed(_sealed: bool):
 	update_start_button()
 
 func _on_start_pressed() -> void:
+	# Triggers `_lobby_tagged()` function via signal for all players.
 	var result :LobbyResult = await GlobalLobbyClient.add_lobby_tags({"game_state": "started"}).finished
 	if result.has_error():
 		logs_label.text = result.error

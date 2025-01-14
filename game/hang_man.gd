@@ -32,26 +32,12 @@ func _ready() -> void:
 	if GlobalLobbyClient.lobby.data.has("health"):
 		while health != len(body_parts):
 			take_damage()
-	GlobalLobbyClient.lobby_notified.connect(_lobby_nofitied)
+	GlobalLobbyClient.lobby_notified.connect(_lobby_notified)
 	GlobalLobbyClient.lobby_left.connect(_lobby_left)
 	GlobalLobbyClient.log_updated.connect(_append_log)
 	GlobalLobbyClient.received_lobby_data.connect(_received_lobby_data)
 	GlobalLobbyClient.disconnected_from_lobby.connect(_disconnected_from_lobby)
 	GlobalLobbyClient.lobby_tagged.connect(_lobby_tagged)
-
-
-func find_node_by_name(parent: Node, p_name: String) -> Node:
-	# Check if the current parent node matches the name
-	if parent.name == p_name:
-		return parent
-	# Iterate through all children of the current parent node
-	for child in parent.get_children():
-		# Recursively search in each child
-		var found_node = find_node_by_name(child, p_name)
-		if found_node:
-			return found_node
-	# If not found, return null
-	return null
 
 
 func set_buttons_enabled(enabled: bool):
@@ -68,7 +54,7 @@ func _received_lobby_data(data: Dictionary, is_private: bool):
 				take_damage()
 		# Update the words highlighted
 		for letter in data.get("pressed", {}):
-			var node : Button= find_node_by_name(self, "Button" + letter)
+			var node : Button = inputButtons.get_node("Button" + letter)
 			node.flat = true
 			node.text = ""
 	
@@ -85,7 +71,7 @@ func _start_guessing(word):
 	letter_pad.update_word(word)
 
 
-func _lobby_nofitied(data: Dictionary, from_peer: LobbyPeer):
+func _lobby_notified(data: Dictionary, from_peer: LobbyPeer):
 		match data["command"]:
 			"guess":
 				var guess = data["letter"]
@@ -179,7 +165,7 @@ func leave_lobby():
 	if result.has_error():
 		logs.text = result.error
 	else:
-		logs.text = "Left Succesfuly"
+		logs.text = "Left Succesfully"
 	if is_inside_tree():
 		get_tree().change_scene_to_packed(main_menu_scene)
 
