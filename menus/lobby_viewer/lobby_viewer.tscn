@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1qjnqq2nagyi"]
+[gd_scene load_steps=5 format=3 uid="uid://d1qjnqq2nagyi"]
 
 [ext_resource type="Script" path="res://menus/lobby_viewer/lobby_viewer.gd" id="1_buss2"]
+[ext_resource type="PackedScene" uid="uid://6dkft5u86tpy" path="res://game/hang_man.tscn" id="2_hxfha"]
 [ext_resource type="PackedScene" uid="uid://b2rg6aqw3tdmq" path="res://assets/blazium.tscn" id="2_tmpon"]
 [ext_resource type="Script" path="res://menus/general/Autofocus.gd" id="3_t45qh"]
 
@@ -12,6 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"BgPanel"
 script = ExtResource("1_buss2")
+hangman_scene = ExtResource("2_hxfha")
 lobby_grid = NodePath("HBoxContainer/ColorRect/VBoxContainer/LobbyVBoxContainer")
 logs_label = NodePath("HBoxContainer/ColorRect/VBoxContainer/Logs")
 seal_button = NodePath("HBoxContainer/ColorRect/VBoxContainer/HBoxContainer/Seal")
