@@ -36,7 +36,7 @@ func _ready() -> void:
 	GlobalLobbyClient.lobby_left.connect(_lobby_left)
 	GlobalLobbyClient.log_updated.connect(_append_log)
 	GlobalLobbyClient.received_lobby_data.connect(_received_lobby_data)
-	GlobalLobbyClient.disconnected_from_lobby.connect(_disconnected_from_lobby)
+	GlobalLobbyClient.disconnected_from_server.connect(_disconnected_from_server)
 	GlobalLobbyClient.lobby_tagged.connect(_lobby_tagged)
 
 
@@ -173,6 +173,6 @@ func _on_leave_pressed() -> void:
 	leave_lobby()
 
 
-func _disconnected_from_lobby(_reason: String):
+func _disconnected_from_server(_reason: String):
 	if is_inside_tree():
 		get_tree().change_scene_to_packed(main_menu_scene)

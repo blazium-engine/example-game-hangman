@@ -19,13 +19,13 @@ var confirm_exit: ConfirmationDialog
 
 func _ready() -> void:
 	GlobalLobbyClient.log_updated.connect(_log_updated)
-	_connected_to_lobby(GlobalLobbyClient.peer, "")
-	GlobalLobbyClient.connected_to_lobby.connect(_connected_to_lobby)
+	_connected_to_server(GlobalLobbyClient.peer, "")
+	GlobalLobbyClient.connected_to_server.connect(_connected_to_server)
 	if not (OS.get_name() in ["Android", "iOS", "Web"]):
 		quit_button.show()
 		create_quit_dialog()
 
-func _connected_to_lobby(peer: LobbyPeer, _reconnection_token: String):
+func _connected_to_server(peer: LobbyPeer, _reconnection_token: String):
 	var peer_name: String = peer.user_data.get("name", "")
 	
 	# If no name

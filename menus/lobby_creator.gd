@@ -12,7 +12,7 @@ var lobby_viewer_scene: PackedScene = load("res://menus/lobby_viewer/lobby_viewe
 var sealed: bool = false
 
 func _ready() -> void:
-	GlobalLobbyClient.disconnected_from_lobby.connect(_disconnected_from_lobby)
+	GlobalLobbyClient.disconnected_from_server.connect(_disconnected_from_server)
 
 func _on_button_main_menu_pressed() -> void:
 	if is_inside_tree():
@@ -66,7 +66,7 @@ func _input(_event):
 	if Input.is_action_just_pressed("ui_cancel"):
 		_on_button_main_menu_pressed()
 
-func _disconnected_from_lobby(_reason: String):
+func _disconnected_from_server(_reason: String):
 	if is_inside_tree():
 		get_tree().change_scene_to_packed(main_menu_scene)
 

@@ -53,7 +53,7 @@ func _ready() -> void:
 	GlobalLobbyClient.lobby_tagged.connect(_lobby_tagged)
 	GlobalLobbyClient.peer_ready.connect(_peer_ready)
 	GlobalLobbyClient.peer_messaged.connect(_peer_messaged)
-	GlobalLobbyClient.disconnected_from_lobby.connect(_disconnected_from_lobby)
+	GlobalLobbyClient.disconnected_from_server.connect(_disconnected_from_server)
 	if !GlobalLobbyClient.is_host():
 		seal_button.visible = false
 		start_button.visible = false
@@ -89,7 +89,7 @@ func _peer_messaged(peer: LobbyPeer, chat_message: String):
 	var message :String=  "[b]" + peer.user_data.get("name", "") + "[/b]: " + chat_message + "\n"
 	chat_text.text += message
 
-func _disconnected_from_lobby(_reason: String):
+func _disconnected_from_server(_reason: String):
 	if is_inside_tree():
 		get_tree().change_scene_to_packed(main_menu_scene)
 
