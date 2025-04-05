@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://7blyjegi70l6"]
 
-[ext_resource type="Script" path="res://menus/lobby_browser/lobby_browser.gd" id="1_cirsv"]
+[ext_resource type="Script" uid="uid://b2w12qquinmxt" path="res://menus/lobby_browser/lobby_browser.gd" id="1_cirsv"]
 [ext_resource type="PackedScene" uid="uid://b2rg6aqw3tdmq" path="res://assets/blazium.tscn" id="2_musv1"]
 
 [node name="LobbyBrowser" type="PanelContainer" node_paths=PackedStringArray("lobby_grid", "logs", "left_spacer", "right_spacer")]

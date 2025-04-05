@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://dmwdqnvuk8nbk"]
 
-[ext_resource type="Script" path="res://menus/lobby_creator.gd" id="1_3c7gg"]
+[ext_resource type="Script" uid="uid://dcefj5lmnvrxc" path="res://menus/lobby_creator.gd" id="1_3c7gg"]
 [ext_resource type="PackedScene" uid="uid://b2rg6aqw3tdmq" path="res://assets/blazium.tscn" id="2_1te4o"]
-[ext_resource type="Script" path="res://menus/general/Autofocus.gd" id="3_j2gh6"]
+[ext_resource type="Script" uid="uid://c7wxo7ov27pw8" path="res://menus/general/Autofocus.gd" id="3_j2gh6"]
 
 [node name="LobbyCreator" type="PanelContainer" node_paths=PackedStringArray("password_line_edit", "logs_label", "max_players_label", "title_label", "create_button", "left_spacer", "right_spacer")]
 anchors_preset = 15

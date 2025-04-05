@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://d1qjnqq2nagyi"]
 
-[ext_resource type="Script" path="res://menus/lobby_viewer/lobby_viewer.gd" id="1_buss2"]
+[ext_resource type="Script" uid="uid://cva12epghbsej" path="res://menus/lobby_viewer/lobby_viewer.gd" id="1_buss2"]
 [ext_resource type="PackedScene" uid="uid://6dkft5u86tpy" path="res://game/hang_man.tscn" id="2_hxfha"]
 [ext_resource type="PackedScene" uid="uid://b2rg6aqw3tdmq" path="res://assets/blazium.tscn" id="2_tmpon"]
-[ext_resource type="Script" path="res://menus/general/Autofocus.gd" id="3_t45qh"]
+[ext_resource type="Script" uid="uid://c7wxo7ov27pw8" path="res://menus/general/Autofocus.gd" id="3_t45qh"]
 
 [node name="LobbyViewer" type="PanelContainer" node_paths=PackedStringArray("lobby_grid", "logs_label", "seal_button", "ready_button", "start_button", "lobby_label", "chat_input", "chat_text", "left_spacer", "right_spacer")]
 anchors_preset = 15
