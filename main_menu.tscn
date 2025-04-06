@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cjp8uk6p1a5l7"]
 
-[ext_resource type="Script" path="res://main_menu.gd" id="1_20biu"]
+[ext_resource type="Script" uid="uid://drqakbcpodjr1" path="res://main_menu.gd" id="1_20biu"]
 [ext_resource type="PackedScene" uid="uid://b2rg6aqw3tdmq" path="res://assets/blazium.tscn" id="2_rnpcj"]
-[ext_resource type="Script" path="res://menus/general/Autofocus.gd" id="3_rsdx6"]
+[ext_resource type="Script" uid="uid://c7wxo7ov27pw8" path="res://menus/general/Autofocus.gd" id="3_rsdx6"]
 
 [node name="MainMenu" type="PanelContainer" node_paths=PackedStringArray("peer_name_line_edit", "name_label", "logs", "menu", "set_name_menu", "set_name_button", "multiplayer_button", "quit_button", "left_spacer", "right_spacer")]
 anchors_preset = 15

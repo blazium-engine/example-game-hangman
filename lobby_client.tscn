@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://b8t11ds20n02q"]
 
-[ext_resource type="Script" path="res://lobby_client.gd" id="1_rnl5w"]
+[ext_resource type="Script" uid="uid://cslkjd75xxuf5" path="res://lobby_client.gd" id="1_rnl5w"]
 
-[sub_resource type="LobbyInfo" id="LobbyInfo_ivphx"]
+[sub_resource type="LobbyInfo" id="LobbyInfo_nq7xl"]
 
-[sub_resource type="LobbyPeer" id="LobbyPeer_bnb33"]
+[sub_resource type="LobbyPeer" id="LobbyPeer_mqgqt"]
 
 [node name="LobbyClient" type="LobbyClient"]
-game_id = "hangman"
-lobby = SubResource("LobbyInfo_ivphx")
-peer = SubResource("LobbyPeer_bnb33")
+game_id = "00000000-0000-0000-0000-000000000000"
+lobby = SubResource("LobbyInfo_nq7xl")
+peer = SubResource("LobbyPeer_mqgqt")
 script = ExtResource("1_rnl5w")

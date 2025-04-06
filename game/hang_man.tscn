@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://6dkft5u86tpy"]
 
-[ext_resource type="Script" path="res://game/hang_man.gd" id="1_kupf2"]
+[ext_resource type="Script" uid="uid://cbkwk4bpvjs5a" path="res://game/hang_man.gd" id="1_kupf2"]
 [ext_resource type="PackedScene" uid="uid://b2rg6aqw3tdmq" path="res://assets/blazium.tscn" id="2_d3p2f"]
-[ext_resource type="Script" path="res://game/letter_pad.gd" id="2_epul0"]
-[ext_resource type="Script" path="res://game/input_buttons.gd" id="3_s41hl"]
+[ext_resource type="Script" uid="uid://bquhrnasi3vfr" path="res://game/letter_pad.gd" id="2_epul0"]
+[ext_resource type="Script" uid="uid://bbo6maugvn7hl" path="res://game/input_buttons.gd" id="3_s41hl"]
 
 [sub_resource type="FontVariation" id="FontVariation_3o440"]
 spacing_glyph = 3
